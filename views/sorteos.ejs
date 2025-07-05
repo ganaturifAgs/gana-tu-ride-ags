@@ -1,0 +1,41 @@
+<%- include("templates/cabecera",{titulo:'Gana tu Ride Ags'}) %>
+<div class="loading"></div>
+<div class="fondo"> </div>
+<div class="contenido">
+    <div class="titulo-sorteo rojo"><p id="corp"><%= titulo %></p></div>
+
+    <div class="areaPremios">
+        <%- include("templates/carrusel",{imagenes:activo.premios,id:activo._id}) %>
+    </div>
+
+    
+    <div class="costo" >Boleto $250 (5 numeros a elegir)</div>
+    <div class="descSorteo azul">Aquí va a una descripcion detallada del sorteo, incluyendo las reglas y premios. </div>
+    <div class="areaBoletos">
+        <div id="apartados"><p style="margin:0;">Selección Automática</p><h2><a id="generarNums" class="text-reset"><i id="alAzar" title="¿No sabes que números elegir? Yo te ayudo a seleccionar al azar los números que te falten" class="fa-solid fa-shuffle fa-beat-fade"></i></a></h2></div>
+
+        <% const maxCeros = activo.num_fin.toString().length;
+            function agregaCeros(n,mC){
+                let nS = n.toString()
+                return  '0'.repeat(mC-nS.length)+nS
+            } 
+        %>
+        <h3>De clic en un número para seleccionarlo manualmente</h3>
+        <div id="boletos" class="boletos">
+            <% boletos.forEach(v=>{%>      
+                <div id="boleto_<%= v._id %>" class="boleto <%= v.estatus !== undefined ? (v.estatus==2 ? 'comprado':'apartado') :'libre'  %>">
+                    <div id="<%= v._id %>"><%= agregaCeros(parseInt(v.numero),maxCeros) %></div>
+                </div>    
+            <%}) %>
+           
+           
+        </div>
+
+    </div>
+ <%- include("templates/footer") %>
+
+ <script src="js/metodos.js"></script>
+
+</div>
+</body>
+</html>

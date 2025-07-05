@@ -1,0 +1,331 @@
+:root{
+    --morado: #3A1865;
+    --azul: #1DBFEE;
+    --azulCielo: #0099FF;
+    --rojo: #EA1883;
+    --amarillo: #FECA05;
+    --amarillo-brillante:#FFD500;
+    --magenta:#FF2080;
+    --morado-oscuro:#150629;
+}
+body{
+    font-family: 'Century Gothic' !important;
+    background-color: #f4f4f4;
+    margin: 0px;
+    padding: 0px;
+    overflow-y: hidden;
+
+}
+
+h1, h2, h3 {
+    color: black;
+    text-align: center;
+    font-style:oblique
+}
+.oficiales{
+    position: absolute;
+    background-color: #391764;
+    color: white;
+    padding: 5px 20px;
+    width: inherit;
+    height: 84px;
+}
+.oficiales:hover{
+    color:var(--amarillo-brillante)
+}
+.menu-icon{
+    position: fixed;
+    z-index: 10;
+    display: inline-flex;
+    padding: 8px;
+    margin: 0px;
+}
+.menu-icon img{
+    width: 120px;
+}
+.menu-barra{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 23px 121px;
+    list-style: none;
+}  
+.barra-colapso{
+    display: inline-table;
+}
+.barra-togg{
+    display:none;
+}
+.menu-link{
+    color: white;
+    text-decoration:var(--azul);
+    font-family: 'Century Gothic' !important;
+    font-size: 1.0em;
+    padding: 10px 20px;
+}
+@media (max-width: 992px) {
+    .menu-barra {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .barra-togg{
+        position: relative;
+        display: flex;
+        top:10px;
+        right:5px;
+    }
+    .menu-icon{
+        
+    }
+    .menu-icon img {
+        width: 80px;
+    }
+}
+.cabecera{
+    position:absolute;
+    top: 0;
+    left: 0;
+    display:block;
+    width: 100%;
+    height: 85px;
+    overflow: hidden;
+}
+.titulo-sorteo {
+    
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight:400;
+    background-color: rgba(2555,255,255,0.9);
+    padding: 5px 15px;
+    text-shadow: 2px 2px 5px gray;
+}
+#sorteoActivo{
+    text-align: center;
+    width: 100%;
+    height: 60%;
+}
+#sorteoActivo button {
+    background-color: var(--amarillo-brillante);
+    color:var(--morado-oscuro);
+    font-size: 1em;
+    text-shadow: 2px 2px 5px var(--morado);
+    margin: 40px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    border:1px solid white;
+    width: 300px;
+    box-shadow: 3px 3px 10px white;
+}
+.contenido {
+    font-family: 'Century Gothic' !important;
+    position:absolute;
+    top: 84px;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.areaPreguntas, #contactanos, .areaPremios,.areaBoletos,.costo {
+  background-color: rgba(255,255,255,0.7);
+  padding: 10px 1px;
+}
+.areaPreguntas p, #contactanos p,.costo {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgb(138, 5, 5);
+    text-align: center;
+    font-size: 4.0lvh;
+    font-weight: 400;
+    padding:0;
+}
+.pregunta{
+    text-align: center;
+    font-family: 'Century Gothic' !important;
+    font-size: 1.9em;
+    color: var(--morado);
+    font-weight: bold;
+    padding: 5px 50px;
+}
+.respuesta, .premios{
+    text-align: center;
+    font-family: 'Century Gothic' !important;
+    font-size: 1.2em;
+    color: black;
+    font-weight: normal;
+    padding: 5px 50px;
+}
+.contactar{
+    text-align: center;
+}
+.boletos
+{
+    text-align: center;
+    font-family: 'Century Gothic' !important;
+    font-size: 0.5em;
+    color: black;
+    font-weight: normal;
+    padding: 5px 50px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.boleto{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    margin: 1px;
+    padding: 1px 2px;
+    border: 1px solid #1DBFEE;;
+    border-radius: 5px; 
+    background-color: #fff;
+    font-family: 'Century Gothic' !important;
+    font-size: 0.8rem;
+    color: black;  
+    font-weight: normal;
+    text-align: center; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+.boleto:hover {
+    transform: scale(1.5);
+    border:1px dashed #EA1883;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+#apartados{
+    padding: 10px 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.miBoleto{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding: 2px 5px;
+    margin:2px 10px 2px 1px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+    width: 60px;
+    background: var(--morado);
+    color: white;
+}
+.miBoleto:hover{
+    background-color:var(--amarillo-brillante);
+    cursor: pointer;
+    color:var(--magenta)
+}
+#corp{
+ font-family: "Cooper Black", sans-serif;
+ font-size: 150%;
+ padding: 0;
+ margin: 0;
+}
+#alAzar{
+    color:var(--amarillo-brillante);
+    transition: text-shadow 0.2s ease;
+}
+#alAzar:hover{
+    cursor:pointer;
+    color:var(--rojo);
+    text-shadow: 4px 4px 10px var(--azulCielo);
+    
+}
+.libre{
+    background-color: white;
+    color: black;
+}
+.apartado{
+    background-color: #1DBFEE;
+    color: black;
+}
+.comprado{
+    border:1px solid #EA1883;
+    color: white;
+    background-color: gray;
+}
+.carrusel{
+    padding:15px 50px;
+    text-align: center;
+}
+
+.piePagina{
+    position: relative;
+    width: 100%;
+    padding: 5px 2px 1px 2px;
+    background-color: var(--morado-oscuro);
+    color: white;
+    text-align: center;
+    max-height: fit-content;
+}
+.texto-sorteo{
+    width: 100%;
+    text-align: center;
+}
+
+.textoPie{
+    font-family: 'Century Gothic' !important;
+    font-size: 0.8em;
+    color: white;
+    text-align: center;
+    padding: 1px 0;
+}
+.textoPie p {
+    margin: 0;
+    padding: 0;
+}
+
+a.vinculo {
+    color: #ffffff;
+    padding: 1px 15px;
+    text-decoration: none;
+    transition: transform 0.4s ease;
+}
+
+a.vinculo>svg:hover{
+    transform: scale(1.6);
+    color:var(--magenta);
+    cursor:pointer;
+
+}
+.fondo {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/portada_ancha.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    padding: 0;
+    margin:0;
+    opacity: 0.9;
+}
+
+.rojo{
+    background-color: #EA1883;
+    opacity: 0.8;
+    color:white
+}
+.azul{
+    background-color: #1DBFEE;
+    color:black
+}
+.amarillo{
+    background-color: #FECA05;
+    color:black
+}
+.morado{
+    background-color: rgba(58,24,101,1);
+    color:white
+}

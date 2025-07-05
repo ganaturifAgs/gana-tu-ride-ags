@@ -1,0 +1,41 @@
+<%- include("templates/cabecera",{titulo:'Gana tu Ride Ags'}) %>
+<div class="fondo"> </div>
+<div class="contenido">
+    <div id="inicio" class="titulo-sorteo"><p id="corp"><span style='color:var(--amarillo-brillante)'>Gana</span> <span style='color:var(--azulCielo)'>tu Ride</span> <span style='color:var(--magenta)'>Ags</spa></p><p id="bien"><%= titulo %></p></div>
+    <div id="sorteoActivo" ><button class="rojo">Sorteo Activo</button></div>
+    <div class="areaPreguntas">
+        <P id="tituloPreguntas">Pregunta Frecuentes</p>
+        <%- include("templates/preguntas",{listaPreguntas:preguntas}) %>
+    </div>
+    <div id="contactanos">
+        <p>Contactanos</p>
+        <div class="contacto">
+            <div class="contactar">                
+                <h3>WHATSAPP: 449-1234567</h3>
+            <a href="https://www.whatsapp.com/channel/0029Vb5sW3WEVccFWz7auY2f" target="_blank"   class="me-4 text-reset">
+                <i class="fab fa-whatsapp fa-3x"></i>
+            </a>
+            </div>
+            <div class="contactar">                
+                <h3>atencionclientes@ganaturideags.com</h3>
+                <a href="mailto:atencionclientes@ganaturideags.com" class="me-4 text-reset">
+                    <i class="fas fa-envelope fa-3x"></i>
+                </a>
+
+            </div>
+            <div class="contactar">                
+                <h3>Instagram</h3>
+                <a href="https://www.instagram.com/gana.tu.ride.ags/?igsh=MXU2ZGFvaGhtZjc0cg%3D%3D#" target="_blank" class="me-4 text-reset">
+                    <i class="fab fa-instagram fa-3x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <%- include("templates/footer") %>
+</div>
+
+
+<script src="js/inicioSesion.js"></script>
+</body>
+
+</html>

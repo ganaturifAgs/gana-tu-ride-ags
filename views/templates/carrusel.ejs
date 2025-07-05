@@ -1,0 +1,37 @@
+<div>
+  <div class="carousel">
+    <ul class="slides">
+    <% const cant = Object.keys(imagenes).length; %>
+    <% Object.keys(imagenes).forEach(function(item) { %>
+    
+    <input type="radio" name="radio-buttons" id="img-<%= item %>"  <%= item==1 ? 'checked':'' %> />
+      <li class="slide-container">
+        <div class="slide-image">
+          <img src="img/sorteos/<%= id %>/<%= imagenes[item].foto %>">
+    
+        <div class="carousel-title">
+          <h2><%= item %>° Lugar </h2>
+          <p><%= imagenes[item].nombre %></p>
+        </div>
+         </div>
+        <div class="carousel-controls">
+          <label for="img-<%=  item=='1' ? cant:parseInt(item) - 1 %>" class="prev-slide">
+            <span>&lsaquo;</span>
+          </label>
+          <label for="img-<%= item==cant ? 1 : parseInt(item) + 1 %>" class="next-slide">
+            <span>&rsaquo;</span>
+          </label>
+        </div>
+      </li>
+    <% }) %>
+
+
+      <div class="carousel-dots">
+        <% Object.keys(imagenes).forEach(function(item) { %>
+            <label for="img-<%= item %>" class="carousel-dot" id="img-dot-<%= item %>"></label>
+        <% }) %>
+      </div>
+    
+    </ul>
+  </div>
+</div>
