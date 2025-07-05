@@ -37,7 +37,7 @@ h1, h2, h3 {
     position: fixed;
     z-index: 10;
     display: inline-flex;
-    padding: 8px;
+    padding: 2px;
     margin: 0px;
 }
 .menu-icon img{
@@ -63,25 +63,80 @@ h1, h2, h3 {
     font-family: 'Century Gothic' !important;
     font-size: 1.0em;
     padding: 10px 20px;
+    
+
 }
+
+
+
 @media (max-width: 992px) {
     .menu-barra {
+        display:flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content:flex-end;
+        font-size:21px;
+        position:fixed;
+        top:50px;
+        right:500px;
+        z-index:10;
+        width: 120px;
+        border-radius: 10px;
+        height: auto;
+        background-color: rgba(255,255,255,0.7);
     }
     .barra-togg{
-        position: relative;
+        position: absolute;
         display: flex;
-        top:10px;
-        right:5px;
+        top:20px;
+        right:10px;
+        border:0;
+        background: none;
+        color:white;
     }
     .menu-icon{
-        
+
+        top:2px;
+        left:42%;
+        padding:0;
+        margin:0;
+    }
+    .menu-item{
+        position:relative;
+        width: 100%;
+    }
+    .menu-link{
+        text-decoration: none;
+        position: relative;
+        display: block;
+        color: black;
+        width: 229px;
+        border-bottom: 1px solid gray;
+        font-size: 18px;
+        text-shadow: 1px 1px 2px gray;
+
     }
     .menu-icon img {
         width: 80px;
     }
+    .colapso{
+        position:absolute;
+        width: 2444px;
+        top:50px;
+        right:500px;
+
+    }
+   
+    .menu-item{
+        flex-direction: column;
+        width: 115px;
+    }
 }
+
+
+
+
+
+
 .cabecera{
     position:absolute;
     top: 0;

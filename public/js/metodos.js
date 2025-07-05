@@ -62,6 +62,13 @@ $("#generarNums").on("click",()=>{
 })
 
 
+
+
+
+
+
+
+
 let radioCount = $(".slides input[type='radio']").length;
 var n=2
 let autoCarrusel = setInterval(cambiaImagen,5000);

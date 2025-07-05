@@ -13,8 +13,11 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "ip": "^2.0.1",
     "mongodb": "^6.17.0",
-    "mongoose": "^8.16.0"
+    "mongoose": "^8.16.0",
+    "npm": "^11.4.1",
+    "public-ip": "^7.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
