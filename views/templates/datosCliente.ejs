@@ -1,0 +1,6 @@
+<div id="dataUserForm">
+    <% datosForm.forEach(v=>{%>
+        <div class="etiquetas"><%= v.e %></div>
+        <div class="valor"><input id="<%= v.c[2]%>" type="<%= v.c[0] %>" value="" placeholder="<%= v.c[1] %>"/> </div>  
+    <% }) %>        
+</div>

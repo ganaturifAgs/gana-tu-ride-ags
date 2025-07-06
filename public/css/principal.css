@@ -184,13 +184,13 @@ h1, h2, h3 {
     overflow-x: hidden;
     overflow-y: scroll;
 }
-.areaPreguntas, #contactanos, .areaPremios,.areaBoletos,.costo {
+.areaPreguntas,.areaEmpresa, #contactanos, .areaPremios,.areaBoletos,.costo {
   background-color: rgba(255,255,255,0.7);
   padding: 10px 1px;
 }
-.areaPreguntas p, #contactanos p,.costo {
+.areaPreguntas p,.areaEmpresa p, #contactanos p,.costo {
     color: rgba(255, 255, 255, 1);
-    background-color: rgb(138, 5, 5);
+    background-color: rgb(112, 50, 50);
     text-align: center;
     font-size: 4.0lvh;
     font-weight: 400;
@@ -258,6 +258,7 @@ h1, h2, h3 {
     padding: 10px 20px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.7);
+    align-items: center;
 }
 .miBoleto{
     display: inline-flex;
@@ -285,15 +286,19 @@ h1, h2, h3 {
  margin: 0;
 }
 #alAzar{
-    color:var(--amarillo-brillante);
-    transition: text-shadow 0.2s ease;
+    color:var(--magenta);
+    font-size: 70px;
+}
+#alAzar::after{
+    text-shadow: 2px 2px 5px black;
 }
 #alAzar:hover{
     cursor:pointer;
-    color:var(--rojo);
-    text-shadow: 4px 4px 10px var(--azulCielo);
-    
+    text-shadow: 1px 1px 3px gray;
 }
+
+
+
 .libre{
     background-color: white;
     color: black;
@@ -311,6 +316,56 @@ h1, h2, h3 {
     padding:15px 50px;
     text-align: center;
 }
+
+.valor{ 
+    width: 250px;
+    input{
+        font-size: 12px;
+        height: 15px;
+        border:none;
+        border-bottom:1px solid #150629;
+        color:var(--morado-oscuro);
+        width: 250px;
+    }
+}
+
+.etiquetas{
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 4px;
+    width: 250px;
+}
+.btn_submit{
+    padding: 0px 10px 0px 0px;
+    button{
+        border: none;
+        font-size: 13px;
+        color:#006e06;
+        text-shadow: 1px 1px 3px gray;
+    }
+    button:hover{
+        color:var(--magenta)
+    }
+}
+
+
+.btn-Apartar{
+    font-size: 14px;
+    font-weight: bold;
+    width:fit-content;
+    padding: 2px 5px;
+    border:1px solid black;
+    border-radius:5px;
+    background-color: #006e06;
+    color:whitesmoke;
+    cursor: pointer;
+    align-self: center;
+    display: inline;
+    margin-top:5px
+}
+
+
+
 
 .piePagina{
     position: relative;

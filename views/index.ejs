@@ -3,6 +3,10 @@
 <div class="contenido">
     <div id="inicio" class="titulo-sorteo"><p id="corp"><span style='color:var(--amarillo-brillante)'>Gana</span> <span style='color:var(--azulCielo)'>tu Ride</span> <span style='color:var(--magenta)'>Ags</spa></p><p id="bien"><%= titulo %></p></div>
     <div id="sorteoActivo" ><button class="rojo">Sorteo Activo</button></div>
+    <div class="areaEmpresa">
+        <P id="tituloEmpresa">Nosostros</p>
+        <%- include("templates/nosotros") %>
+    </div>
     <div class="areaPreguntas">
         <P id="tituloPreguntas">Pregunta Frecuentes</p>
         <%- include("templates/preguntas",{listaPreguntas:preguntas}) %>

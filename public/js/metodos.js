@@ -8,7 +8,8 @@ $(".boleto").on("click", function() {
     
     let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
     sesion.misBoletos=sesion.misBoletos!==undefined ? sesion.misBoletos:[]
-    if($marco[0].className.includes("comprado")){alert("El boleto ya ha sido comprado o no está disponible para apartar en este momento "); return true}
+    if($marco[0].className.includes("comprado")){ alertify.alert("Gana tu Ride Ags", "El boleto ya ha sido comprado o no está disponible para apartar en este momento ", function(){ alertify.success('Ok')}); return true;}
+    
 
     if(sesion.misBoletos.includes(id_bol)){
         $marco.removeClass("apartado").addClass("libre");
@@ -18,13 +19,17 @@ $(".boleto").on("click", function() {
         return true
     }
     if(sesion.misBoletos.length==5){
-            alert("Ya ha seleccionado los 5 numeros participantes. De clic en uno de sus numeros para eliminarlo")
+        alertify.alert("Gana tu Ride Ags","Ya ha seleccionado los 5 numeros participantes. De clic en uno de sus numeros para eliminarlo",function(){ alertify.success('Ok')})
+            
     }else{
         $marco.removeClass("libre").addClass("apartado");
         let $miBole = $("<div>").addClass("miBoleto")
         $miBole.html($($boleto).clone());
         $apartados.append($miBole)
         sesion.misBoletos.push(id_bol)
+        if(sesion.misBoletos.length==5){
+            $apartados.append($("<p>").html("Apartar Numeros").css({"border":"1px solid black","padding":"2px 10px"}))
+        }
         sessionStorage.setItem('userSesion',JSON.stringify(sesion))
     }
 
@@ -55,11 +60,50 @@ $("#generarNums").on("click",()=>{
                 $apartados.css("background-image","none")
                 $($num[0].parentElement).removeClass('libre').addClass("apartado")
             });
+          $apartados.append($("<p>").html($("<div>").html("Apartar Numeros").addClass("btn-Apartar")).on("click",e=>{ 
+           let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
+                $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
+                $(".btn_submit button").click((e)=>{ 
+                        console.log(e)
+                        if(vacio($("#nom")) || vacio($("#dir")) || vacio($("#cd")) || vacio($("#tel"))) {alertify.alert("Información Incompleta","Debe de llenar todos los campos solicitados");  return false}
+                        if(!validarTel($("#tel").val())) return false;
+                        let datosCliente={nombre:$("#nom").val(),direccion:$("#dir").val(),ciudad:$("#cd").val(),telefono:$("#tel").val()}
+                        let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+                        alertify.notify(`¡¡Felicidades!! Sus números ${sesion.misBoletos} `,"success",5,()=>{ 
+                            sesion.datosPersonales = datosCliente
+                            sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+                            $.post("boletos/actualizar",{boletos:sesion.misBoletos,datos:JSON.stringify(datosCliente)}).done((resp)=>{
+                                let mensaje=`Hola, acabo de apartar estos numeros: ${sesion.misBoletos}`
+                                window.open(`https://wa.me/524492764223?text=${mensaje}`,"_blank");
+                                document.location.href="/"
+                            })
+                            $datos.close()
+                         });
+                        console.log(datosCliente)
+                    })
+                }))
         })
     }else{
-        alert("Usted ya tiene sus 5 números seleccionados")
+        alertify.alert("Gana tu Ride Ags","Usted ya tiene sus 5 números seleccionados",function(){ alertify.success('Ok')})
     }
 })
+
+function validarTel(v){
+    if(v.length == 10){
+        let i = parseInt(v)
+        if(i<999999999){
+            alertify.alert("Formato incorrecto","El formato del telefono debe ser de 10 digitos sin espacio y sin guiones (1234567890)") 
+            return false
+        }
+    }else{
+        alertify.alert("Digitos Incorrecto","El formato del telefono debe ser de 10 digitos sin espacio y sin guiones (1234567890)") 
+        return false
+    }
+    return true
+}
+function vacio(v){
+    return  v.val().trim()=='' ? true:false
+}
 
 
 

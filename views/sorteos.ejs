@@ -12,7 +12,7 @@
     <div class="costo" >Boleto $250 (5 numeros a elegir)</div>
     <div class="descSorteo azul">Aquí va a una descripcion detallada del sorteo, incluyendo las reglas y premios. </div>
     <div class="areaBoletos">
-        <div id="apartados"><p style="margin:0;">Selección Automática</p><h2><a id="generarNums" class="text-reset"><i id="alAzar" title="¿No sabes que números elegir? Yo te ayudo a seleccionar al azar los números que te falten" class="fa-solid fa-shuffle fa-beat-fade"></i></a></h2></div>
+        <div id="apartados"><p style="margin:0;">Selección Automática</p><h2><a id="generarNums" class=""><i id="alAzar" title="¿No sabes que números elegir? Yo te ayudo a seleccionar al azar los números que te falten" class="fa-solid fa-shuffle"></i></a></h2></div>
 
         <% const maxCeros = activo.num_fin.toString().length;
             function agregaCeros(n,mC){
@@ -35,7 +35,10 @@
  <%- include("templates/footer") %>
 
  <script src="js/metodos.js"></script>
-
 </div>
+
+<% let datos=[{e:"Nombre:",c:["text","Nombre completo","nom"]},{e:"Direccion:",c:["text","calle, num, colonia","dir"]},{e:"Ciudad:",c:["text","ciudad, estado","cd"]},{e:"Telefono:",c:["tel","10 dígitos","tel"]}]; %>
+<%- include("templates/datosCliente",{datosForm:datos}) %>
+<script src="js/alertasDialogos.js"></script>
 </body>
 </html>

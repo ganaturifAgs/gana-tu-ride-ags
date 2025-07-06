@@ -1,0 +1,21 @@
+div.ajs-header{
+    background-color: rgba(0,0,0,0.7) !important;
+    color:white !important;
+    opacity: 1 !important;
+    display:flex !important;
+
+}
+
+div.ajs-content{
+    padding: 2px;
+}
+
+.alertify .ajs-dialog{
+    width: 330px;
+}
+
+.alertify .ajs-footer{
+visibility:visible !important;
+padding:5px !important;
+
+}
