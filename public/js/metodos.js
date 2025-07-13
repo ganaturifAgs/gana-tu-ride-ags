@@ -1,5 +1,44 @@
 
 
+const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addClass("btn-Apartar").on("click",e=>{ 
+           let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
+                $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
+                $(".btn_submit button").click((e)=>{ 
+                        if(vacio($("#nom")) || vacio($("#tel"))  || vacio($("#edo")) ) {alertify.error("Debe de llenar todos los campos solicitados");  return false}
+                        if(!validarTel($("#tel").val())) return false;
+                        $datos.close()                        
+                        alertify.myAlert({message:"Al cerrar esta ventana, acepta todoso los terminos y condiciones de este sorteo. Al igual que ser redirigido a Whatsapp",botones:[{text:`<span>Acptar y redireccionar a </span><i class='fab fa-whatsapp fa-2x'></i>`,className:"ajs-ok",key:27}],funcion:direccionarWA}).set({title:"Aviso Importante"})
+                       
+                    })
+                })
+            }
+
+
+let direccionarWA = function(e){
+    let datosCliente={estatus:2,datos:{nombre:$("#nom").val(),ciudad:$("#edo").val(),telefono:$("#tel").val()},fecha:Date()}
+    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+    sesion.datosPersonales = datosCliente
+    sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+    datosCliente.datos=JSON.stringify(datosCliente.datos)
+    let boletosCommit=[]
+    sesion.misBoletos.forEach((b,i,a)=>{      
+            $.ajax({url:"boletos/"+b,type:'PUT',data:datosCliente,success:function(resp){
+                boletosCommit.push(resp.numero)
+                if(boletosCommit.length==5){
+                        $.post("/gposBoletos",)    
+
+                        let mensaje=`Hola, soy *${datosCliente.datos.nombre}* acabo de apartar estos números: *${sesion.misBoletos}*, para el sorteo *${$("#corp").html().replace("#","No.")}*. En cuanto tenga el comprobante de pago, se lo haré llegar por este medio para asi revibir mi boleto.`
+                        window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
+                        document.location.href="/boletos/impreso/666"   
+                    }
+                }})                                                                                        
+
+        })
+
+
+}
+
+
 $(".boleto").on("click", function() {
     let $marco = $(this)
     let id_bol = $marco[0].firstElementChild.id;
@@ -8,16 +47,19 @@ $(".boleto").on("click", function() {
     
     let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
     sesion.misBoletos=sesion.misBoletos!==undefined ? sesion.misBoletos:[]
-    if($marco[0].className.includes("comprado")){ alertify.alert("Gana tu Ride Ags", "El boleto ya ha sido comprado o no está disponible para apartar en este momento ", function(){ alertify.success('Ok')}); return true;}
+    let clases = $marco[0].className
+    if(clases.includes("comprado") || clases.includes('reservado')){ alertify.alert("Gana tu Ride Ags", "El boleto ya ha sido comprado o no está disponible para apartar en este momento ", function(){ alertify.success('Ok')}); return true;}
     
 
-    if(sesion.misBoletos.includes(id_bol)){
+    if($marco[0].className.includes("apartado")){
         $marco.removeClass("apartado").addClass("libre");
         $apartados.find(`.miBoleto:has(#${id_bol})`).remove();
-        sesion.misBoletos = sesion.misBoletos.filter(b => b !== id_bol);
+        console.log(id_bol)
+        sesion.misBoletos = sesion.misBoletos.filter(b => b !== parseInt(id_bol));
         sessionStorage.setItem('userSesion', JSON.stringify(sesion));
+        $apartados.find(".btn-Apartar").remove();
         return true
-    }
+    }else{
     if(sesion.misBoletos.length==5){
         alertify.alert("Gana tu Ride Ags","Ya ha seleccionado los 5 numeros participantes. De clic en uno de sus numeros para eliminarlo",function(){ alertify.success('Ok')})
             
@@ -26,13 +68,13 @@ $(".boleto").on("click", function() {
         let $miBole = $("<div>").addClass("miBoleto")
         $miBole.html($($boleto).clone());
         $apartados.append($miBole)
-        sesion.misBoletos.push(id_bol)
+        sesion.misBoletos.push(parseInt(id_bol))
         if(sesion.misBoletos.length==5){
-            $apartados.append($("<p>").html("Apartar Numeros").css({"border":"1px solid black","padding":"2px 10px"}))
+            $apartados.append($btn_apartar())
         }
         sessionStorage.setItem('userSesion',JSON.stringify(sesion))
     }
-
+}
     
    //     $.get(`boletos/actualizar/${id_bol}/${estatus}`).done(r=>{ })
   
@@ -44,6 +86,7 @@ $("#generarNums").on("click",()=>{
     let cantAct = sesion.misBoletos.length
     if(cantAct<5){
         $apartados = $("#apartados")
+        let $tmp = $("<div>")
         $apartados.css("background-image","url('../gif/generarNumeros.gif')")
         $.get(`boletos/azar/${5-cantAct}`).done(resp=>{
             resp.forEach(e => {
@@ -51,37 +94,20 @@ $("#generarNums").on("click",()=>{
                     let boletos=document.getElementById("boletos")
                     boletos.scrollTo(0,parseInt($(`#boleto_${e._id}`).position().top))
                 })
-
                 let $num = $(`#${e._id}`)
                 $miBole.html($num.clone())
-                $apartados.append($miBole)
+                $tmp.append($miBole)
                 sesion.misBoletos.push(e._id)
                 sessionStorage.setItem('userSesion',JSON.stringify(sesion))
-                $apartados.css("background-image","none")
+
                 $($num[0].parentElement).removeClass('libre').addClass("apartado")
             });
-          $apartados.append($("<p>").html($("<div>").html("Apartar Numeros").addClass("btn-Apartar")).on("click",e=>{ 
-           let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
-                $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
-                $(".btn_submit button").click((e)=>{ 
-                        console.log(e)
-                        if(vacio($("#nom")) || vacio($("#dir")) || vacio($("#cd")) || vacio($("#tel"))) {alertify.alert("Información Incompleta","Debe de llenar todos los campos solicitados");  return false}
-                        if(!validarTel($("#tel").val())) return false;
-                        let datosCliente={nombre:$("#nom").val(),direccion:$("#dir").val(),ciudad:$("#cd").val(),telefono:$("#tel").val()}
-                        let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
-                        alertify.notify(`¡¡Felicidades!! Sus números ${sesion.misBoletos} `,"success",5,()=>{ 
-                            sesion.datosPersonales = datosCliente
-                            sessionStorage.setItem('userSesion',JSON.stringify(sesion))
-                            $.post("boletos/actualizar",{boletos:sesion.misBoletos,datos:JSON.stringify(datosCliente)}).done((resp)=>{
-                                let mensaje=`Hola, acabo de apartar estos numeros: ${sesion.misBoletos}`
-                                window.open(`https://wa.me/524492764223?text=${mensaje}`,"_blank");
-                                document.location.href="/"
-                            })
-                            $datos.close()
-                         });
-                        console.log(datosCliente)
-                    })
-                }))
+           
+        setTimeout(()=>{
+                $apartados.append($tmp.html())
+                $apartados.css("background-image","none")
+                $apartados.append($btn_apartar()) 
+          },5000)
         })
     }else{
         alertify.alert("Gana tu Ride Ags","Usted ya tiene sus 5 números seleccionados",function(){ alertify.success('Ok')})
@@ -92,11 +118,11 @@ function validarTel(v){
     if(v.length == 10){
         let i = parseInt(v)
         if(i<999999999){
-            alertify.alert("Formato incorrecto","El formato del telefono debe ser de 10 digitos sin espacio y sin guiones (1234567890)") 
+            alertify.error("Error de formato") 
             return false
         }
     }else{
-        alertify.alert("Digitos Incorrecto","El formato del telefono debe ser de 10 digitos sin espacio y sin guiones (1234567890)") 
+        alertify.notify("Deben ser 10 digitos",'ajs-x',5) 
         return false
     }
     return true
@@ -104,22 +130,29 @@ function validarTel(v){
 function vacio(v){
     return  v.val().trim()=='' ? true:false
 }
+/*
 
-
-
-
-
-
-
-
-
-let radioCount = $(".slides input[type='radio']").length;
-var n=2
-let autoCarrusel = setInterval(cambiaImagen,5000);
-function cambiaImagen(){
-    $(`input#img-${n}`).click()
-    n = n==radioCount ? 1:n+1
+function imprimirBoleto(nums){
+    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+    let nums = `${nums[0]} - ${nums[1]} - ${nums[2]} - ${nums[3]} - ${nums[4]}`
+    let nom = sesion.datosPersonales.datos.nombre
+    let cd = sesion.datosPersonales.datos.ciudad
+    let fecha = sesion.datosPersonales.fecha
+    window.open("boletos/impreso/25?key=sdfghrtertghfhfghghdsgdfgdfg","_blank")
 }
+
+    
+
+    html2canvas($("#boletoImpreso")[0]).then(canvas=>{
+        document.location.href=url(canvas)
+       Canvas2Image.saveAsJPEG(canvas)
+       
+     
+        
+        
+    })
+
+*/
 
 //((_id=Number(4))=>{$.get(`boletos/apartar/${_id}`,{id:_id},dataType="json").done(r=>console.log(r))})();
 

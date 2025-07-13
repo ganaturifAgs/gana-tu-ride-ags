@@ -1,0 +1,168 @@
+
+
+const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addClass("btn-Apartar").on("click",e=>{ 
+           let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
+                $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
+                $(".btn_submit button").click((e)=>{ 
+                        if(vacio($("#nom")) || vacio($("#tel"))  || vacio($("#edo")) ) {alertify.error("Debe de llenar todos los campos solicitados");  return false}
+                        if(!validarTel($("#tel").val())) return false;
+                        console.log($datos)
+                        $datos.close()
+                        
+                        alertify.myAlert({message:"Al cerrar esta ventana, acepta todoso los terminos y condiciones de este sorteo. Al igual que ser redirigido a Whatsapp",botones:[{text:`<span>Acptar y redireccionar a </span><i class='fab fa-whatsapp fa-2x'></i>`,className:"ajs-ok",key:27}]},function(){ 
+                            console.log("callback");  return true; 
+                        
+                        }).set({title:"Aviso Importante"})
+
+                        let datosCliente={estatus:2,datos:{nombre:$("#nom").val(),ciudad:$("#edo").val(),telefono:$("#tel").val()},fecha:Date()}
+                        let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+                        alertify.set('notifier','position', 'bottom-center');
+                        alertify.notify(`Espere un momento mientras generamos su boleto con su números... ${sesion.misBoletos} `,"success",5,()=>{ 
+                            $datos.close()
+                            sesion.datosPersonales = datosCliente
+                            sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+                            datosCliente.datos=JSON.stringify(datosCliente.datos)
+                            let boletosCommit=[]
+                            sesion.misBoletos.forEach((b,i,a)=>{      
+                                    $.ajax({url:"boletos/"+b,type:'PUT',data:datosCliente,success:function(resp){
+                                        console.log(resp)
+                                        boletosCommit.push(resp.numero)
+                                        if(boletosCommit.length==5){
+                                                //imprimirBoleto(boletosCommit)
+                                            
+                                                 let mensaje=`Hola, acabo de apartar estos números: ${sesion.misBoletos}, para el sorteo ${$("#corp").html().replace("#","No.")} `
+                                                 window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
+                                                document.location.href="/"   
+                                            }
+                                        }})                                                                                        
+
+                            })
+
+                           
+                            
+                         });
+                    })
+                })
+            }
+
+
+$(".boleto").on("click", function() {
+    let $marco = $(this)
+    let id_bol = $marco[0].firstElementChild.id;
+    let $boleto = $(this).children()[0];
+    $apartados = $("#apartados")
+    
+    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+    sesion.misBoletos=sesion.misBoletos!==undefined ? sesion.misBoletos:[]
+    let clases = $marco[0].className
+    if(clases.includes("comprado") || clases.includes('reservado')){ alertify.alert("Gana tu Ride Ags", "El boleto ya ha sido comprado o no está disponible para apartar en este momento ", function(){ alertify.success('Ok')}); return true;}
+    
+
+    if($marco[0].className.includes("apartado")){
+        $marco.removeClass("apartado").addClass("libre");
+        $apartados.find(`.miBoleto:has(#${id_bol})`).remove();
+        console.log(id_bol)
+        sesion.misBoletos = sesion.misBoletos.filter(b => b !== parseInt(id_bol));
+        sessionStorage.setItem('userSesion', JSON.stringify(sesion));
+        $apartados.find(".btn-Apartar").remove();
+        return true
+    }else{
+    if(sesion.misBoletos.length==5){
+        alertify.alert("Gana tu Ride Ags","Ya ha seleccionado los 5 numeros participantes. De clic en uno de sus numeros para eliminarlo",function(){ alertify.success('Ok')})
+            
+    }else{
+        $marco.removeClass("libre").addClass("apartado");
+        let $miBole = $("<div>").addClass("miBoleto")
+        $miBole.html($($boleto).clone());
+        $apartados.append($miBole)
+        sesion.misBoletos.push(parseInt(id_bol))
+        if(sesion.misBoletos.length==5){
+            $apartados.append($btn_apartar())
+        }
+        sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+    }
+}
+    
+   //     $.get(`boletos/actualizar/${id_bol}/${estatus}`).done(r=>{ })
+  
+});
+
+$("#generarNums").on("click",()=>{
+    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+    sesion.misBoletos=sesion.misBoletos!==undefined ? sesion.misBoletos:[]
+    let cantAct = sesion.misBoletos.length
+    if(cantAct<5){
+        $apartados = $("#apartados")
+        let $tmp = $("<div>")
+        $apartados.css("background-image","url('../gif/generarNumeros.gif')")
+        $.get(`boletos/azar/${5-cantAct}`).done(resp=>{
+            resp.forEach(e => {
+                let $miBole=$("<div>").addClass("miBoleto").click(()=>{ 
+                    let boletos=document.getElementById("boletos")
+                    boletos.scrollTo(0,parseInt($(`#boleto_${e._id}`).position().top))
+                })
+                let $num = $(`#${e._id}`)
+                $miBole.html($num.clone())
+                $tmp.append($miBole)
+                sesion.misBoletos.push(e._id)
+                sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+
+                $($num[0].parentElement).removeClass('libre').addClass("apartado")
+            });
+           
+        setTimeout(()=>{
+                $apartados.append($tmp.html())
+                $apartados.css("background-image","none")
+                $apartados.append($btn_apartar()) 
+          },5000)
+        })
+    }else{
+        alertify.alert("Gana tu Ride Ags","Usted ya tiene sus 5 números seleccionados",function(){ alertify.success('Ok')})
+    }
+})
+
+function validarTel(v){
+    if(v.length == 10){
+        let i = parseInt(v)
+        if(i<999999999){
+            alertify.error("Error de formato") 
+            return false
+        }
+    }else{
+        alertify.notify("Deben ser 10 digitos",'ajs-x',5) 
+        return false
+    }
+    return true
+}
+function vacio(v){
+    return  v.val().trim()=='' ? true:false
+}
+/*
+
+function imprimirBoleto(nums){
+    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
+    let nums = `${nums[0]} - ${nums[1]} - ${nums[2]} - ${nums[3]} - ${nums[4]}`
+    let nom = sesion.datosPersonales.datos.nombre
+    let cd = sesion.datosPersonales.datos.ciudad
+    let fecha = sesion.datosPersonales.fecha
+    window.open("boletos/impreso/25?key=sdfghrtertghfhfghghdsgdfgdfg","_blank")
+}
+
+    
+
+    html2canvas($("#boletoImpreso")[0]).then(canvas=>{
+        document.location.href=url(canvas)
+       Canvas2Image.saveAsJPEG(canvas)
+       
+     
+        
+        
+    })
+
+*/
+
+//((_id=Number(4))=>{$.get(`boletos/apartar/${_id}`,{id:_id},dataType="json").done(r=>console.log(r))})();
+
+
+
+

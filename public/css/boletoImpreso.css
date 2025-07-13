@@ -1,0 +1,145 @@
+body{
+    margin:0;
+    padding: 0;
+}
+.fondo {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/portada_ancha.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    padding: 0;
+    margin:0;
+    opacity: 0.9;
+}
+.boleto-modal{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+}
+.ocultar{
+    display:none;
+}
+.boleto-contenido{
+    position: absolute;
+    width:328px;
+    height:550px;
+    background-color: white;
+    border:none;
+}
+#gana{
+    font-size: 21px;
+    text-shadow: 2px 2px 1px gray;
+}
+.lateral{
+     display: inline-flex;
+     border:1px solid red;
+    width: 10%;
+    height: 98%;
+    background-color: red;
+    color: white;
+    text-orientation: sideways;
+    writing-mode: vertical-lr;
+    font-size: x-large;
+    letter-spacing: 6px;
+    flex-direction: row-reverse;
+    padding: 2% 0px 2% 0px;
+}
+.central{
+    display: inline-grid;
+    border:1px solid white;
+    padding: 0px;
+    margin: 0px;
+    width: 75.5%;
+    height: 100%;
+    vertical-align: top;
+    background-color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+    text-wrap-style: pretty;
+}
+.centrales{
+    /*border-bottom: 1px solid black;  */
+    position:relative;
+    border:none;
+    box-shadow: 0px 1.5px 2px gray;
+    width: 100%;
+    display: block;
+    padding: 3px;
+    text-align:start;
+  line-height: 1.2;
+    
+}
+#arriba{
+    height: 77px;
+    vertical-align: text-top;
+}
+#medio{    
+    height: 80px;
+     vertical-align: top;
+}
+#abajo{
+    height: 200pxx;
+    vertical-align:text-top;
+}
+#qrcode{
+    height: 140px;
+    width: 128px !important;
+    padding: 10px 25% 0px 25%;
+}
+#qrcode>img{
+    display: inline-flex;   
+}
+#arriba div{
+    display: inline-flex;
+    width: 48%;
+    vertical-align: middle;
+}
+#medio div{
+    display: inline-flex;
+    width: 48%;
+    height: 90%;
+    vertical-align: top;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.datos span{
+    font-size: 12px;
+    display: inline-flex;
+    width: 59%;
+    vertical-align: top;
+    text-align: left;
+}
+.eti{
+    width: 39% !important;
+}
+.foto{
+    width: 100%;
+    text-align: center;
+}
+#guardarBole{
+    position: absolute;
+    border-radius:5px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    top:10px;
+    box-shadow: 1px 2px 2px gray;
+}
+#guardarBole:hover{
+    cursor: pointer;
+    background-color: white;
+    color:green;
+    box-shadow: 1px 2px 2px black;
+}

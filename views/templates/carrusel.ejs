@@ -4,7 +4,7 @@
     <% const cant = Object.keys(imagenes).length; %>
     <% Object.keys(imagenes).forEach(function(item) { %>
     
-    <input type="radio" name="radio-buttons" id="img-<%= item %>"  <%= item==1 ? 'checked':'' %> />
+    <input type="radio" name="radio-buttons" id="img-<%= item %>"  <%= item=='1' ? 'checked':'' %> />
       <li class="slide-container">
         <div class="slide-image">
           <img src="img/sorteos/<%= id %>/<%= imagenes[item].foto %>">
@@ -35,3 +35,4 @@
     </ul>
   </div>
 </div>
+<script src="js/automatico.js"></script>
