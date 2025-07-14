@@ -32,13 +32,14 @@ body{
 .boleto-contenido{
     position: absolute;
     width:328px;
-    height:550px;
+    height:580px;
     background-color: white;
     border:none;
 }
 #gana{
-    font-size: 21px;
-    text-shadow: 2px 2px 1px gray;
+    font-size: 20px;
+    font-family: "Cooper Black";
+    width: 48% !important;
 }
 .lateral{
      display: inline-flex;
@@ -76,7 +77,7 @@ body{
     display: block;
     padding: 3px;
     text-align:start;
-  line-height: 1.2;
+    line-height: 1.2;
     
 }
 #arriba{
@@ -84,7 +85,7 @@ body{
     vertical-align: text-top;
 }
 #medio{    
-    height: 80px;
+    height: 62px;
      vertical-align: top;
 }
 #abajo{
@@ -92,27 +93,28 @@ body{
     vertical-align:text-top;
 }
 #qrcode{
-    height: 140px;
+    height: 133px;
     width: 128px !important;
-    padding: 10px 25% 0px 25%;
+    padding: 8px 25% 0px 25%;
 }
 #qrcode>img{
     display: inline-flex;   
 }
 #arriba div{
     display: inline-flex;
-    width: 48%;
+    width: 40%;
     vertical-align: middle;
 }
-#medio div{
+#medio span{
     display: inline-flex;
-    width: 48%;
+    width: 59%;
     height: 90%;
     vertical-align: top;
     flex-direction: column;
     align-items: baseline;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    text-align: center;
 }
 .datos span{
     font-size: 12px;
@@ -120,9 +122,13 @@ body{
     width: 59%;
     vertical-align: top;
     text-align: left;
+    border-bottom:1px dashed gray;
 }
 .eti{
-    width: 39% !important;
+    width: 32% !important;
+    font-weight: bold;
+    vertical-align: -webkit-baseline-middle !important;
+    border-bottom: none !important;
 }
 .foto{
     width: 100%;
@@ -142,4 +148,14 @@ body{
     background-color: white;
     color:green;
     box-shadow: 1px 2px 2px black;
+}
+.reservado{
+    color:red;
+}
+.pagado{
+    color: rgb(4, 62, 4);
+    font-weight: 800;
+}
+#misNumeros{
+    font-weight: 900;
 }

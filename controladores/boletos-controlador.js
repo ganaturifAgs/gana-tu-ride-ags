@@ -36,10 +36,9 @@ const crearBoleto = async (req, res) => {
 
 const actualizarBoleto = async (req, res) => {
     try {
-        console.log(`[${ip_cliente}] Reservo Boleto _id: ${req.params.id}`)
-        let datosCliente = req.body
-        datosCliente.datos = JSON.parse(req.body.datos)
-        const boletoActualizado = await modeloBoletos.findByIdAndUpdate(req.params.id, datosCliente);
+        console.log(`[${ip_cliente}] Reservo Boleto _id: ${req.params.id}. Grupo Boleto: ${req.body}`)
+        let datos = req.body
+        const boletoActualizado = await modeloBoletos.findByIdAndUpdate(req.params.id, datos);
         if (!boletoActualizado) {
             return res.status(404).json({ mensaje: 'Boleto no encontrado', success:false });
         }

@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 const gruposBoletosRutas = require("../controladores/gruposBoletos_controlador")
 
-router.get('/', gruposBoletosRutas.listar)
-router.get('/:id', gruposBoletosRutas.obtenerPorId)
-router.post('/', gruposBoletosRutas.crear)
-router.put('/:id', gruposBoletosRutas.actualizar)
-router.delete('/:id', gruposBoletosRutas.eliminar)
+router.get('/', gruposBoletosRutas.obtenerGruposBoletos)
+router.get('/:id', gruposBoletosRutas.obtenerGruposBoletosPorId)
+router.post('/', gruposBoletosRutas.crearGrupoBoletos)
+router.put('/:id', gruposBoletosRutas.actualizarGrupoBoletos)
+router.delete('/:id', gruposBoletosRutas.eliminarGrupoBoletos)
+router.get('/new/id',gruposBoletosRutas.getNewId)
 
 module.exports = router

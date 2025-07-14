@@ -15,26 +15,31 @@ const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addC
 
 
 let direccionarWA = function(e){
-    let datosCliente={estatus:2,datos:{nombre:$("#nom").val(),ciudad:$("#edo").val(),telefono:$("#tel").val()},fecha:Date()}
+    let datosTMP={nombre:$("#nom").val(),telefono:$("#tel").val(),estado:$("#edo").val()}
     let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
-    sesion.datosPersonales = datosCliente
-    sessionStorage.setItem('userSesion',JSON.stringify(sesion))
-    datosCliente.datos=JSON.stringify(datosCliente.datos)
+    sesion.datosPersonales = datosTMP
+    datosCliente=JSON.stringify(datosTMP)
     let boletosCommit=[]
-    sesion.misBoletos.forEach((b,i,a)=>{      
-            $.ajax({url:"boletos/"+b,type:'PUT',data:datosCliente,success:function(resp){
+    $.get("gposBoletos/new/id").done(nuevo=>{
+        sesion.misBoletos.forEach((b,i,a)=>{      
+            $.ajax({url:"boletos/"+b,type:'PUT',data:{estatus:2,grupoBoleto:nuevo},success:function(resp){
                 boletosCommit.push(resp.numero)
                 if(boletosCommit.length==5){
-                        $.post("/gposBoletos",)    
-
-                        let mensaje=`Hola, soy *${datosCliente.datos.nombre}* acabo de apartar estos números: *${sesion.misBoletos}*, para el sorteo *${$("#corp").html().replace("#","No.")}*. En cuanto tenga el comprobante de pago, se lo haré llegar por este medio para asi revibir mi boleto.`
-                        window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
-                        document.location.href="/boletos/impreso/666"   
-                    }
-                }})                                                                                        
-
+                        datos={_id:nuevo,numeros:JSON.stringify(boletosCommit),sorteo:resp.sorteo,estatus:2,datos:datosCliente,fecha:Date()}
+                        $.ajax({url:"gposBoletos/",type:'POST',data:datos,success:function(resGpo){
+                            if(resGpo.success){
+                                sesion.BoletosReservados=sesion.misBoletos
+                                sesion.misBoletos=[]
+                                sessionStorage.setItem('userSesion',JSON.stringify(sesion))
+                                let mensaje=`Hola, soy *${datosTMP.nombre}* acabo de apartar estos números: *${boletosCommit}*, para el sorteo *${$("#corp").html().replace("#","No.")}*. Folio: *${nuevo}* En cuanto tenga el comprobante de pago, se lo haré llegar por este medio para asi recibir mi boleto.`
+                                window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
+                                document.location.href=`boletos/impreso/${nuevo}`   
+                                }
+                            }})
+                  }
+            }})                                                                                                        
         })
-
+    })
 
 }
 
@@ -80,11 +85,12 @@ $(".boleto").on("click", function() {
   
 });
 
-$("#generarNums").on("click",()=>{
+$("#generarNums").on("click",(e)=>{
     let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
     sesion.misBoletos=sesion.misBoletos!==undefined ? sesion.misBoletos:[]
     let cantAct = sesion.misBoletos.length
     if(cantAct<5){
+        $(e).prop("enabled",true)
         $apartados = $("#apartados")
         let $tmp = $("<div>")
         $apartados.css("background-image","url('../gif/generarNumeros.gif')")
@@ -107,6 +113,7 @@ $("#generarNums").on("click",()=>{
                 $apartados.append($tmp.html())
                 $apartados.css("background-image","none")
                 $apartados.append($btn_apartar()) 
+                $(e).prop("enabled",true)
           },5000)
         })
     }else{

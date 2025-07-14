@@ -11,7 +11,8 @@ const gruposBoletosSchema = new mongoose.Schema({
     numeros: { type: [Number], required: true },
     sorteo: { type: Number, required: true },
     estatus: { type: Number, required: true },
-    datos: { type: datosSchema, required: true }
+    datos: { type: datosSchema, required: true },
+    fecha:{type:Date, required:true}
 }, { collection: 'gruposBoletos' });
 
-module.exports = mongoose.model('GruposBoletos', gruposBoletosSchema);
+module.exports = mongoose.model('gruposBoletos', gruposBoletosSchema);

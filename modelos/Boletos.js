@@ -4,12 +4,7 @@ const esquemaB =  mongoose.Schema({
     sorteo: Number,
     numero: Number,
     estatus: Number,
-    datos: {
-        nombre: String,
-        ciudad: String,
-        telefono: String
-    },
-    fecha: Date
+    grupoBoleto: Number
 })
 
 const Boletos  = mongoose.model("boletos",esquemaB)

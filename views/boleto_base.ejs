@@ -12,14 +12,13 @@
 <body>
     <div class="fondo"> </div>
     <div class="boleto-modal">
-       <div id="boletoImpreso" class="boleto-contenido">
-        
-   
-    <%- include("boletos/impreso",{_id:id}) %>
+       <div id="boletoImpreso" class="boleto-contenido">     
+
+    <%- include("boletos/impreso",{datos:data}) %>
          
 
     </div>
-    <div id="guardarBole">Guardar</div>
+   
 </div>
 
 <script>
@@ -28,6 +27,7 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
       width: 128,
       height: 128,
     });
+  //document.getElementById("misNumeros").innerHTML = document.getElementById("misNumeros").innerHTML.replaceAll(","," - ") 
 </script>
 </body>
 </html>
