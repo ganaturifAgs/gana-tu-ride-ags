@@ -186,6 +186,17 @@ h1, h2, h3 {
     width: 300px;
     box-shadow: 3px 3px 10px white;
 }
+.modoPruebas{
+    font-size: 80px;
+    text-align: center;
+    color: white;
+    margin: 50px
+}
+@media (max-width:400px){
+    .modoPruebas{
+        font-size: 40px;
+    }
+}
 .contenido {
     font-family: 'Century Gothic' !important;
     position:absolute;

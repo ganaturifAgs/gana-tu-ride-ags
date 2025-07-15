@@ -3,7 +3,6 @@ const { dirname } = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 8080
-
 const html2canvas = require('html2canvas')
 
 const  mongoose = require('./router/BD/mongoose-db')
@@ -23,10 +22,11 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname +'/public'));
 
 
+console.log(__dirname)
+console.log(dirname(__dirname))
 
-
-app.get("/", async (req,res)=>{ 
-  const Preguntas = require("./modelos/preguntas")
+app.get('/', async (req,res)=>{ 
+  const Preguntas = require('./modelos/preguntas')
   let lista = await  Preguntas.find()
   res.render('index',{titulo:'Corre el riesgo, súbete al ride... "¡y gánalo!"',preguntas:lista}) 
 })
