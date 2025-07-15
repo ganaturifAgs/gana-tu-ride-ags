@@ -30,6 +30,9 @@ app.get('/', async (req,res)=>{
   let lista = await  Preguntas.find()
   res.render('index',{titulo:'Corre el riesgo, súbete al ride... "¡y gánalo!"',preguntas:lista}) 
 })
+app.get('/pagos',async(req,res)=>{
+  res.render('pagos',{titulo:'Metodos de Pago',corporacion:'Gana tu Ride Ags'})
+})
 
 app.use('/pregunta',preguntaRutas)
 app.use('/sorteos',sorteoRutas)

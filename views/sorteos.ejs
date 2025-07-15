@@ -12,7 +12,12 @@
 
 
     <div class="areaBoletos">
-        <div id="apartados"><p style="margin:0;">¿No sabes que números elegir?</p><h2><div id="generarNums" class="alAzar"><i title="Seleccionar al azar los números que te falten" class="fa-solid fa-shuffle"></i></a></h2></div>
+        <div id="apartados"><p style="margin:0;">¿No sabes que números elegir?</p>
+            <div class="Padre"><div id="generarNums" class="alAzar"></div></div>
+        <!--      <i title="Seleccionar al azar los números que te falten" class="fa-solid fa-shuffle"></i>
+              <img src="./img/azar628_color.png" alt="" width="80px"> -->
+            <p>Da clic para elegirlos aleatoriamente</p>
+        </div>
 
           <% function agregaCeros(n){
 		        let maxCeros = activo.num_fin.toString().length+1;
@@ -24,7 +29,7 @@
             let cant = boletos.length
             let i=0
             %>
-          <h3>De clic en un número para seleccionarlo manualmente</h3>
+          <h4>De clic en tus 5 números para seleccionarlo manualmente</h4>
         <div id="boletos" class="boletos">
             <% while(i!=cant){ 
                 let miEst = boletos[i].estatus;

@@ -7,7 +7,7 @@ const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addC
                         if(vacio($("#nom")) || vacio($("#tel"))  || vacio($("#edo")) ) {alertify.error("Debe de llenar todos los campos solicitados");  return false}
                         if(!validarTel($("#tel").val())) return false;
                         $datos.close()                        
-                        alertify.myAlert({message:"Al cerrar esta ventana, acepta todoso los terminos y condiciones de este sorteo. Al igual que ser redirigido a Whatsapp",botones:[{text:`<span>Acptar y redireccionar a </span><i class='fab fa-whatsapp fa-2x'></i>`,className:"ajs-ok",key:27}],funcion:direccionarWA}).set({title:"Aviso Importante"})
+                        alertify.myAlert({message:"Al cerrar esta ventana, acepta todos los terminos y condiciones de este sorteo. Será redirigido a Whatsapp",botones:[{text:`<span>Acptar </span><i class='fab fa-whatsapp fa-3x'></i>`,className:"ajs-ok",key:27}],funcion:direccionarWA}).set({title:"Aviso Importante"})
                        
                     })
                 })
@@ -33,7 +33,7 @@ let direccionarWA = function(e){
                                 sessionStorage.setItem('userSesion',JSON.stringify(sesion))
                                 let mensaje=`Hola, soy *${datosTMP.nombre}* acabo de apartar estos números: *${boletosCommit}*, para el sorteo *${$("#corp").html().replace("#","No.")}*. Folio: *${nuevo}* En cuanto tenga el comprobante de pago, se lo haré llegar por este medio para asi recibir mi boleto.`
                                 window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
-                                document.location.href=`boletos/impreso/${nuevo}`   
+                                document.location.href=`/`   
                                 }
                             }})
                   }
@@ -75,7 +75,7 @@ $(".boleto").on("click", function() {
         $apartados.append($miBole)
         sesion.misBoletos.push(parseInt(id_bol))
         if(sesion.misBoletos.length==5){
-            $apartados.append($btn_apartar())
+            $apartados.append($("<div>").addClass('Padre').html($btn_apartar()))
         }
         sessionStorage.setItem('userSesion',JSON.stringify(sesion))
     }
@@ -112,7 +112,7 @@ $("#generarNums").on("click",(e)=>{
         setTimeout(()=>{
                 $apartados.append($tmp.html())
                 $apartados.css("background-image","none")
-                $apartados.append($btn_apartar()) 
+                $apartados.append($("<div>").addClass('Padre').html($btn_apartar()))
                 $(e).prop("enabled",true)
           },5000)
         })
@@ -137,32 +137,31 @@ function validarTel(v){
 function vacio(v){
     return  v.val().trim()=='' ? true:false
 }
-/*
-
-function imprimirBoleto(nums){
-    let sesion = JSON.parse(sessionStorage.getItem('userSesion'))
-    let nums = `${nums[0]} - ${nums[1]} - ${nums[2]} - ${nums[3]} - ${nums[4]}`
-    let nom = sesion.datosPersonales.datos.nombre
-    let cd = sesion.datosPersonales.datos.ciudad
-    let fecha = sesion.datosPersonales.fecha
-    window.open("boletos/impreso/25?key=sdfghrtertghfhfghghdsgdfgdfg","_blank")
-}
-
-    
-
-    html2canvas($("#boletoImpreso")[0]).then(canvas=>{
-        document.location.href=url(canvas)
-       Canvas2Image.saveAsJPEG(canvas)
-       
-     
-        
-        
-    })
-
-*/
-
-//((_id=Number(4))=>{$.get(`boletos/apartar/${_id}`,{id:_id},dataType="json").done(r=>console.log(r))})();
 
 
 
+$(".copiar").on("click",function(e){
+    function copyToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+    }
+    let $texto = e.currentTarget.innerText
+    let $this = $(e)
+    try{
+    copyToClipboard($texto)
+        alertify.success("Texto copiado al portapapeles")
+        $this.addClass("copiado")
+    }catch(err){
+        alertify.error("Error al copiar el texto")
+        console.error('Error al copiar el texto: ', err);
+    }
+})
 
+$("#whatsappPagos").on("click",function(e){
+    let mensaje = `Tome una foto de su comprobante de pago ahora y elimine este mensaje.`
+    window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
+})
