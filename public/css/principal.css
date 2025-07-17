@@ -323,6 +323,7 @@ h1, h2, h3 {
 
 }
 .alAzar{
+    margin-top: 10px;
     background-image: url("../img/azar_rojo.png");
     width: 80px;
     height: 80px;

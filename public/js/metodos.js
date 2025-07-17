@@ -177,6 +177,7 @@ $("#whatsappPagos").on("click",function(e){
 $(".iconos").on("click",function(e){
     $(".iconos").removeClass("seleccionado")
     $(this).addClass("seleccionado")
+    $("input[name='por']").removeAttr("checked")
     this.id === "icono_numero" ? $("input[name='buscador']").attr("placeholder","Número de Boleto") : $("input[name='buscador']").attr("placeholder","Teléfono del Comprador")
     this.id === "icono_numero" ? $("input[id='por_numero']").attr("checked","checked") : $("input[id='por_telefono']").attr("checked","checked")
 })
