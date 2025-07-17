@@ -26,11 +26,11 @@ exports.obtenerSorteoPorId = async (req, res) => {
 // Obtener un sorteo por activo
 exports.obtenerSorteoPorEstatus = async (req, res) => {
     try {
-        const sorteo = await Sorteo.find({estatus:true});
+        const sorteo = await Sorteo.find({activo:true});
         if (!sorteo) {
             return res.status(404).json({ mensaje: 'No hay sorteo activo' });
         }
-        res.json(sorteo);
+        res.json({success:true,data:sorteo[0]});
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al obtener el sorteo', error });
     }

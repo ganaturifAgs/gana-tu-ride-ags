@@ -8,6 +8,8 @@ router.get('/:id', boletosControlador.obtenerBoletoPorId)
 router.put('/:id', boletosControlador.actualizarBoleto)
 router.delete('/:id', boletosControlador.eliminarBoleto)
 router.get('/azar/:cant',boletosControlador.alAzar)
+router.get('/numero/:numero/sorteo/:sorteo',boletosControlador.boletoporNumeroySorteo)
+
 
 router.get('/impreso/:id_boleto',async (req,res)=>{
     const moment = require("moment")

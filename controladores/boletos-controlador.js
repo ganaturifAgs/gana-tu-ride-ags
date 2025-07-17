@@ -14,6 +14,7 @@ const obtenerBoletos = async (req, res) => {
 
 const obtenerBoletoPorId = async (req, res) => {
     try {
+        
         const boleto = await modeloBoletos.findById(req.params.id);
         if (!boleto) {
             return res.status(404).json({ mensaje: 'Boleto no encontrado' });
@@ -76,11 +77,26 @@ const alAzar = async (req, res) => {
 };
 
 
+const boletoporNumeroySorteo = async (req, res) => {
+    try {
+        const { numero, sorteo } = req.params;
+        const boleto = await modeloBoletos.findOne({ numero, sorteo });
+        if (!boleto) {
+            return res.status(404).json({ mensaje: 'Boleto no encontrado' });
+        }
+        res.json({success:true,data:boleto});
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al obtener boleto', error });
+    }
+};
+
+
 module.exports = {
     obtenerBoletos,
     obtenerBoletoPorId,
     crearBoleto,
     actualizarBoleto,
     eliminarBoleto,
-    alAzar
+    alAzar,
+    boletoporNumeroySorteo
 };

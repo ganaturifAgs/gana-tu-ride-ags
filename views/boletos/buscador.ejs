@@ -1,0 +1,36 @@
+<%- include("../templates/cabecera",{titulo:`${corporacion} - ${titulo}`}) %> 
+<div class="loading"></div>
+<div class="fondo"> </div>
+<div class="contenido">
+    <div class="titulo-sorteo rojo"><p id="corp"><%= titulo %></p></div>
+        <div class="areaPremios">
+            <form action="">
+                <div class="opciones Padre">Opciones de Busqueda</div>
+                <div class="Padre"><i class="fa-solid fa-arrow-down fa-2x"></i></div>
+                <div class="Padre radiosBuscar">  
+                       
+                    <input class="ocultar" type="radio" name="por" id="por_numero" value="1" checked>
+                    <div id="icono_numero" class="iconos seleccionado"><i  class="fa-solid fa-hashtag fa-3x"></i></div>
+                    <input class="ocultar" type="radio" name="por" id="por_telefono" value="2">
+                    <div id="icono_telefono" class="iconos"><i id="icono_telefono" class="fa-solid fa-mobile-retro fa-3x"></i></div>
+                </div>
+                 <div class="Padre"><input type="text" name="buscador" placeholder="Número de boleto" ></div>                   
+                <div class="Padre"><button id="buscadorBoletos" type="submit" class="btn btn-primary">Buscar</button></div>
+                
+            </form>
+        <div id="resultadosBusqueda">
+            <ul id="listaResultados">
+                <!-- Aquí se mostrarán los resultados de la búsqueda -->
+            </ul>
+        </div>
+
+
+        </div>
+
+ <%- include("../templates/footer") %>
+</div>
+
+
+<script src="js/metodos.js" ></script>
+</body>
+</html>

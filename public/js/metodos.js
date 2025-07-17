@@ -1,6 +1,7 @@
 
 
 const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addClass("btn-Apartar").on("click",e=>{ 
+            $('#dataUserForm').removeClass("ocultar")
            let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
                 $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
                 $(".btn_submit button").click((e)=>{ 
@@ -138,7 +139,14 @@ function vacio(v){
     return  v.val().trim()=='' ? true:false
 }
 
-
+function sorteoActivo(){
+    $.get("/sorteos/activo").done( async function(resp) {
+        if( await resp.success) return await resp.data._id;
+        else return null;
+    }).fail(function() {
+        console.error("Error al obtener el sorteo activo");
+    });
+}
 
 $(".copiar").on("click",function(e){
     function copyToClipboard(text) {
@@ -165,3 +173,47 @@ $("#whatsappPagos").on("click",function(e){
     let mensaje = `Tome una foto de su comprobante de pago ahora y elimine este mensaje.`
     window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
 })
+
+$(".iconos").on("click",function(e){
+    $(".iconos").removeClass("seleccionado")
+    $(this).addClass("seleccionado")
+    this.id === "icono_numero" ? $("input[name='buscador']").attr("placeholder","Número de Boleto") : $("input[name='buscador']").attr("placeholder","Teléfono del Comprador")
+    this.id === "icono_numero" ? $("input[id='por_numero']").attr("checked","checked") : $("input[id='por_telefono']").attr("checked","checked")
+})
+
+$("#buscadorBoletos").on("click", function(e){
+    e.preventDefault();
+    let tipo = $("input[name='por']:checked").val();
+    let aBuscar = $("input[name='buscador']").val();
+    $.get("/sorteos/activo").done( async function(resp) {
+        let busqueda = tipo==="1" ? `boletos/numero/${aBuscar}/sorteo/${resp.data._id}` : `gposBoletos/telefono/${aBuscar}`;
+        $("#listaResultados").empty();
+        console.log(aBuscar.trim(), busqueda)
+        if(aBuscar.trim() !== ""){  
+            $.get(busqueda).done(resp=>{
+                if(resp.success){
+                    if(resp.data.length > 0){
+                        resp.data.forEach(boleto => {
+                            $("#listaResultados").append(`<div class="Padre"><div id="busquedaNombre">${boleto.datos.nombre}</div><div id="busquedaEstado">${boleto.datos.estado}</div> - <div id="busquedaAccion"> <a href="https://ganaturideags.com/boletos/impreso/${boleto._id}" target="_blank">Ver boleto</a></div></div>`);
+                        });
+                    }else{
+                        if(resp.data.estatus > 0)
+                            $.get((`gposBoletos/${resp.data.grupoBoleto}`)).done(boleto=>{
+                                    $("#listaResultados").append(`<div class="Padre"><div id="busquedaNombre">${boleto.datos.nombre}</div><div id="busquedaEstado">${boleto.datos.estado}</div> - <div id="busquedaAccion"> <a href="https://ganaturideags.com/boletos/impreso/${boleto._id}" target="_blank">Ver boleto</a></div></div>`);
+                            });
+                        else
+                            $("#listaResultados").append(`<div class="Padre"><div>No se encontraron resultados para el dato proporcionado.</div></div>`);
+                    }
+                }else{
+                    $("#listaResultados").append(`<div class="Padre"><div>Error al buscar boletos. Intente nuevamente más tarde.</div></div>`);
+                }
+            });
+        }else{
+            alertify.error("Debe ingresar un número de boleto o teléfono para buscar.")
+        }
+    }).fail(function() {
+        console.error("Error al obtener el sorteo activo");
+        alertify.error("Error al obtener el sorteo activo. Intente nuevamente más tarde.");
+    });
+
+});

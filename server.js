@@ -7,7 +7,7 @@ const html2canvas = require('html2canvas')
 
 const  mongoose = require('./router/BD/mongoose-db')
 const preguntaRutas = require('./router/preguntas-rutas')
-const sorteoRutas = require('./router/Sorteos');
+const sorteoRutas = require('./router/sorteo-rutas');
 const boletosRutas = require('./router/boletos-ruta')
 const gruposBoletosRutas = require("./router/gruposBoletos-rutas")
 
@@ -32,6 +32,10 @@ app.get('/', async (req,res)=>{
 })
 app.get('/pagos',async(req,res)=>{
   res.render('pagos',{titulo:'Metodos de Pago',corporacion:'Gana tu Ride Ags'})
+})
+
+app.get('/buscador',async(req,res)=>{
+  res.render('boletos/buscador',{titulo:'Buscador de Boletos',corporacion:'Gana tu Ride Ags'})
 })
 
 app.use('/pregunta',preguntaRutas)
@@ -60,59 +64,6 @@ await mongoose.connection.on('error', (err) => {
 })()
 */
 
-
-//(async ()=>{return await desconectar()})();
-/*
-let coll,sorteo,boletos
-let myDB,cliente
-
-(async () => {
-  try{
-      const {client, db} = await conectar('rifas_db','server')
-      cli = await cliente
-      myDB=await db
-  }catch{ console.log("Ocurrio un problema al conecatar a la BD") }
-  finally{ await desconectar(cliente) }
-})()
- 
-
-
-
-
-app.get("/",async (req,res)=>{ 
-  coll = await myDB.collection('preguntas').find().toArray()
-  console.log("[info] Se consulto la coleccion preguntas")
-  res.render("index",{ corporacion: "Gana tu Ride Ags", titulo: 'Corre el riesgo, súbete al ride... ¡y gánalo!"',preguntas:coll})
-})
-
-
-app.get("/sorteo",async(req,res)=>{
-  sorteo = await myDB.collection("sorteos").find({'activo':true}).toArray()
-  console.log("[info] Se consulto la coleccion sorteos")
-  boletos = await myDB.collection("boletos").find({'sorteo':sorteo[0]._id}).toArray()
-  console.log("[info] Se consulto la coleccion boletos")
-  res.render("sorteos",{titulo: sorteo[0].titulo,activo:sorteo[0],boletos:boletos})
-})
-
-
-
-app.post('/boletos/actualizar',async (req,res)=>{
-        let tmp=req.body['boletos[]']
-        let ids = tmp.map(x=>{return parseInt(x)})
-        let dat=JSON.parse(req.body.datos)
-        await myDB.collection('boletos').updateMany({_id:{$in:ids}},{$set:{estatus:1,fecha:Date(),datos:dat}})
-        res.json({success:true,msg:"Boletos apartados correctamente"})
-    })
-
-
-app.get('/boletos/azar/:cant',async (req,res)=>{
-  const agg = [{'$sample': {'size': parseInt(req.params.cant)}},{'$match':{'estatus':{'$exists': false}}}];
-  res.json(await myDB.collection('boletos').aggregate(agg).toArray())
-    
-})
-
-
-*/
 
 app.use(express.json());
 app.use((req, res, next) => {

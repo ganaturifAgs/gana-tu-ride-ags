@@ -69,3 +69,14 @@ exports.getNewId = async (req,res)=>{
 };
 
 
+exports.obtenerGruposBoletosPorTelefono = async (req, res) => {
+    try {
+        const telefono = req.params.tel;
+        console.log(telefono)
+        const gruposBoletos = await modeloGruposBoletos.find({ "datos.telefono": telefono });
+        res.json({success:true,data:gruposBoletos});
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al obtener grupos de boletos por teléfono", error });
+    }
+}
+
