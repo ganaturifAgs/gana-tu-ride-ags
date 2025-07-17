@@ -2,7 +2,7 @@ const express = require('express');
 const { dirname } = require('path');
 const app = express();
 const bodyParser = require('body-parser');
-const port = 8080
+const port = 80
 const html2canvas = require('html2canvas')
 
 const  mongoose = require('./router/BD/mongoose-db')
@@ -36,6 +36,10 @@ app.get('/pagos',async(req,res)=>{
 
 app.get('/buscador',async(req,res)=>{
   res.render('boletos/buscador',{titulo:'Buscador de Boletos',corporacion:'Gana tu Ride Ags'})
+})
+
+app.get('/administracion',async(req,res)=>{
+  res.render('admin',{titulo:'Administración',corporacion:'Gana tu Ride Ags',query:req.query})
 })
 
 app.use('/pregunta',preguntaRutas)

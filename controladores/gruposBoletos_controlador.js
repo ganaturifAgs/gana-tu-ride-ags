@@ -80,3 +80,41 @@ exports.obtenerGruposBoletosPorTelefono = async (req, res) => {
     }
 }
 
+exports.buscarGruposBoletos = async (req, res) => {
+    try {
+        const query = req.params.query;
+        const opcion = req.params.opcion;
+       
+const agg =[
+  {
+    $search: {
+      index: "idx_clientes",
+      text: {
+        query: query,
+        path: {
+          wildcard: "*"
+        }
+      }
+    }
+  }
+];
+
+
+
+    const  gruposBoletos =  opcion === '1' ? await modeloGruposBoletos.find({
+            $or: [
+                { "datos.nombre": { $regex: query, $options: 'i' } },
+                { "datos.telefono": { $regex: query, $options: 'i' } },
+                { "datos.estado": { $regex: query, $options: 'i' } }
+            ]
+        }):await modeloGruposBoletos.aggregate(agg);
+   
+
+        res.json({success:true,data:gruposBoletos});
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al buscar grupos de boletos", error: error });
+    }
+}
+
+
+
