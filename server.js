@@ -38,7 +38,7 @@ app.get('/buscador',async(req,res)=>{
   res.render('boletos/buscador',{titulo:'Buscador de Boletos',corporacion:'Gana tu Ride Ags'})
 })
 
-app.get('/administracion',async(req,res)=>{
+app.get('/admin',async(req,res)=>{
   res.render('admin',{titulo:'Administración',corporacion:'Gana tu Ride Ags',query:req.query})
 })
 
@@ -48,8 +48,8 @@ app.use('/boletos',boletosRutas)
 app.use('/gposBoletos',gruposBoletosRutas)
 
 app.post('/sesion/:ip',(req,res)=>{
-    console.log(`IP-Cliente: ${req.params.ip}`) 
-    res.send({ip:req.params.ip})
+    console.log(`[${req.params.ip}] inicio de sesión`) 
+    res.send(true)
 })
 
 /*
