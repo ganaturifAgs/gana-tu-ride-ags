@@ -7,7 +7,7 @@
        <%- include("templates/carrusel",{imagenes:activo.premios,id:activo._id}) %>  
     </div>
     <div class="costo" >Boleto $250 (5 numeros a elegir)</div>
-    <%- include("templates/descripcionSorteo") %>
+    <%- include("templates/descripcionSorteo",{fecha:activo.tmp}) %>
 
 
 

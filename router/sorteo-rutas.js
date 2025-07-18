@@ -3,16 +3,17 @@ const router = express.Router()
 const sorteoControlador = require('../controladores/sorteo-controlador')
 
 
-router.get('/',async (req,res)=>{     
-    const Sorteo = require("../modelos/Sorteo")
+router.get('/',async (req,res)=>{ 
+    const moment = require('moment')
     const Boletos = require("../modelos/Boletos")
-    let sorteos = await Sorteo.find()
-    let activo = sorteos.filter((s)=>s.activo)[0]
+    const Sorteo = require('../modelos/Sorteo')
     let tmp = await Boletos.find()
     let boletos = await Object.values(tmp)
-    
-    //res.render('boletos',{titulo:activo.titulo,activo:activo})
+    let activo = await Sorteo.findOne({activo:true})
+    activo["tmp"] = moment(activo.fecha_sorteo["1"]).locale('es-mx').format('LL')
     res.render('sorteos',{titulo:activo.titulo,activo:activo,boletosObjeto:boletos})
+    
+
 })
 router.get('/activo',sorteoControlador.obtenerSorteoPorEstatus)
 router.post('/nuevo',sorteoControlador.crearSorteo);

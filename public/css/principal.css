@@ -185,7 +185,14 @@ h1, h2, h3 {
     border:1px solid white;
     width: 300px;
     box-shadow: 3px 3px 10px white;
+    cursor:pointer;
+    transition: background-color 0.5s, transform 0.5s;
 }
+#sorteoActivo button:hover {
+    background-color: var(--morado-oscuro);
+    color: white;
+    transform: scale(1.05);
+}   
 .modoPruebas{
     font-size: 80px;
     text-align: center;
