@@ -1,13 +1,84 @@
-<%- include("templates/cabecera",{titulo:'Administración'}) %>
-    <div class="loading"></div>
-    <div class="fondo"></div>
-    <div class="contenido">
-        <h1>Panel de Administración</h1>
-        <p>Bienvenido al panel de administración. Aquí puedes gestionar los sorteos, boletos y más.</p>
-        <p>Para comenzar, selecciona una opción del menú lateral.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    
+
+<input class="c-checkbox" type="checkbox" id="start">
+<input class="c-checkbox" type="checkbox" id="progress2">
+<input class="c-checkbox" type="checkbox" id="progress3">
+<input class="c-checkbox" type="checkbox" id="finish">
+<div class="c-form__progress"></div>
+
+<div class="c-formContainer">
+  <div class="c-welcome">  <%- include('admin/tarjetas') %>   </div>
+  <form class="c-form" action="">
+    <div class="c-form__group">
+      <label class="c-form__label" for="username">
+                    <input                  
+                        type="text"
+                        id="username"
+                        class="c-form__input"
+                        placeholder=" "
+                        pattern="admin"
+                        required>
+
+                    <label class="c-form__next" for="progress2" role="button">
+                        <span class="c-form__nextIcon"></span>
+                    </label>
+
+      <span class="c-form__groupLabel">Usuario</span>
+      <b class="c-form__border"></b>
+      </label>
     </div>
-    <%- include("templates/footer") %>
+<!--pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" -->
+    <div class="c-form__group">
+      <label class="c-form__label" for="fpass">
+                    <input
+                        type="password"
+                        id="contra"
+                        class="c-form__input"
+                        placeholder=" "
+                        pattern="admin"
+                        required>
+
+                    <label class="c-form__next" for="progress3" role="button">
+                        <span class="c-form__nextIcon"></span>
+                    </label>
+
+      <span class="c-form__groupLabel">Contraseña</span>
+      <b class="c-form__border"></b>
+    </label>
+  </div>
+  <% const num1 = Math.floor(Math.random() * (10-5)+5); %>
+  <% const num2 = Math.floor(Math.random() * (10-5)+5); %>
+  <% let res = num1 * num2; %>
+  <% res = res.toString(); %>
+    <div class="c-form__group">
+      <label class="c-form__label" for="femail">
+                    <input
+                        type="text"
+                        id="foperacion"
+                        class="c-form__input"
+                        placeholder=" "
+                        pattern="<%= res %>"
+                        required>
+
+                    <label class="c-form__next" for="finish" role="button">
+                        <span class="c-form__nextIcon"></span>
+                    </label>
+      <span class="c-form__groupLabel">¿Está en buen estado? <%= num1 %> x <%= num2 %> = ?</span>
+      <b class="c-form__border"></b>
+      </label>
+    </div>
+
+    <label class="c-form__toggle" for="start">Acceso restringido<span class="c-form__toggleIcon"></span></label>
+  </form>
 </div>
-<script src="js/admin.js"></script>
 </body>
 </html>

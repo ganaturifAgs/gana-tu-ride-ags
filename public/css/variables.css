@@ -1,0 +1,17 @@
+:root{
+    --morado: #3A1865;
+    --azul: #1DBFEE;
+    --azulCielo: #0099FF;
+    --rojo: #EA1883;
+    --amarillo: #FECA05;
+    --amarillo-brillante:#FFD500;
+    --magenta:#FF2080;
+    --morado-oscuro:#150629;
+    --left-menu:calc(100vw-120px);
+}
+@font-face{
+    font-family: 'GOTHIC';
+    src: url('./webfonts/GOTHIC.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

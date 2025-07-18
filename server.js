@@ -37,11 +37,11 @@ app.get('/pagos',async(req,res)=>{
 app.get('/buscador',async(req,res)=>{
   res.render('boletos/buscador',{titulo:'Buscador de Boletos',corporacion:'Gana tu Ride Ags'})
 })
-/*
+
 app.get('/admin',async(req,res)=>{
-  res.render('admin',{titulo:'Administración',corporacion:'Gana tu Ride Ags',query:req.query})
+  res.render('admin',{titulo:'Administración',corporacion:'Gana tu Ride Ags'})
 })
-*/
+
 
 app.use('/pregunta',preguntaRutas)
 app.use('/sorteos',sorteoRutas)

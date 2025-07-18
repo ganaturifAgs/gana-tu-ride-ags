@@ -1,16 +1,6 @@
-:root{
-    --morado: #3A1865;
-    --azul: #1DBFEE;
-    --azulCielo: #0099FF;
-    --rojo: #EA1883;
-    --amarillo: #FECA05;
-    --amarillo-brillante:#FFD500;
-    --magenta:#FF2080;
-    --morado-oscuro:#150629;
-    --left-menu:calc(100vw-120px);
-}
+@import url("./variables.css");
 body{
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     background-color: #f4f4f4;
     margin: 0px;
     padding: 0px;
@@ -62,7 +52,7 @@ h1, h2, h3 {
 .menu-link{
     color: white;
     text-decoration:var(--azul);
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 1.0em;
     padding: 10px 20px;
     width: fit-content;
@@ -205,7 +195,7 @@ h1, h2, h3 {
     }
 }
 .contenido {
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     position:absolute;
     top: 84px;
     left: 0;
@@ -233,7 +223,7 @@ h1, h2, h3 {
 }
 .pregunta{
     text-align: center;
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 1.9em;
     color: var(--morado);
     font-weight: bold;
@@ -241,7 +231,7 @@ h1, h2, h3 {
 }
 .respuesta, .premios, .descSorteo{
     text-align: center;
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 1.2em;
     color: black;
     font-weight: normal;
@@ -253,7 +243,7 @@ h1, h2, h3 {
 .boletos
 {
     text-align: center;
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 0.5em;
     font-weight: normal;
     padding: 5px 50px;
@@ -272,7 +262,7 @@ h1, h2, h3 {
     border: 1px solid #1DBFEE;;
     border-radius: 5px; 
     background-color: #fff;
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 0.75rem;
     color: black;  
     font-weight: normal;
@@ -437,7 +427,7 @@ h1, h2, h3 {
 }
 
 .textoPie{
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 0.8em;
     color: white;
     text-align: center;
@@ -626,7 +616,7 @@ input[name="buscador"]:focus {
     padding: 10px 2px 1px 2px;
     margin-bottom: 2px;
     text-align: center;
-    font-family: 'Century Gothic' !important;
+    font-family: 'GOTHIC' !important;
     font-size: 1.2em;
     color: var(--morado-oscuro);
     text-shadow: 1px 1px 2px gray;
