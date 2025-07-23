@@ -4,57 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
+    <script src="/js/jquery.min.js"></script>
+   <script src="/js/alertify.min.js"></script>
+   <script src="/js/variables.js"></script>
+
+<!-- CSS -->
+    <link rel="stylesheet" href="/css/alertify.min.css"/>
+    <link rel="stylesheet" href="/css/default.min.css"/>
+
+    <link rel="stylesheet" href="/css/alertasDialogos.css">
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/fontawesome/all.css">
 </head>
 <body>
-    
-
+ <% const u = usu.usuario;
+     const p = usu.pass;
+     const n = usu.nombre;
+ %>
 <input class="c-checkbox" type="checkbox" id="start">
 <input class="c-checkbox" type="checkbox" id="progress2">
-<input class="c-checkbox" type="checkbox" id="progress3">
+
 <input class="c-checkbox" type="checkbox" id="finish">
 <div class="c-form__progress"></div>
 
 <div class="c-formContainer">
-  <div class="c-welcome">  <%- include('admin/tarjetas') %>   </div>
+  <div class="c-welcome">  <%- include('admin/tarjetas',{nom:n}) %>   </div>
   <form class="c-form" action="">
     <div class="c-form__group">
-      <label class="c-form__label" for="username">
+      <label class="c-form__label" for="fpass">
                     <input                  
-                        type="text"
-                        id="username"
+                        type="password"
+                        id="<%= p %>"
                         class="c-form__input"
                         placeholder=" "
-                        pattern="admin"
+                        pattern=""
+                        onkeypress="validar(this,<%= usu %>)"
                         required>
 
                     <label class="c-form__next" for="progress2" role="button">
                         <span class="c-form__nextIcon"></span>
                     </label>
 
-      <span class="c-form__groupLabel">Usuario</span>
+      <span class="c-form__groupLabel">Constraseña</span>
       <b class="c-form__border"></b>
       </label>
     </div>
-<!--pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" -->
-    <div class="c-form__group">
-      <label class="c-form__label" for="fpass">
-                    <input
-                        type="password"
-                        id="contra"
-                        class="c-form__input"
-                        placeholder=" "
-                        pattern="admin"
-                        required>
 
-                    <label class="c-form__next" for="progress3" role="button">
-                        <span class="c-form__nextIcon"></span>
-                    </label>
-
-      <span class="c-form__groupLabel">Contraseña</span>
-      <b class="c-form__border"></b>
-    </label>
-  </div>
   <% const num1 = Math.floor(Math.random() * (10-5)+5); %>
   <% const num2 = Math.floor(Math.random() * (10-5)+5); %>
   <% let res = num1 * num2; %>
@@ -77,8 +72,11 @@
       </label>
     </div>
 
-    <label class="c-form__toggle" for="start">Acceso restringido<span class="c-form__toggleIcon"></span></label>
+    <label class="c-form__toggle" for="finish"><%= usu.nombre %><span class="c-form__toggleIcon"></span></label>
   </form>
 </div>
+
+<script src="/js/admin/procedimientos.js"></script>
+<script src="/js/admin/admin-metodos.js"></script>
 </body>
 </html>

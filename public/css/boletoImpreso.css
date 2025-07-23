@@ -149,6 +149,14 @@ body{
     color:green;
     box-shadow: 1px 2px 2px black;
 }
+.colorPagado{
+    border:1px solid forestgreen;
+    background-color: forestgreen;
+}
+.colorReservado{
+    border:1px solid red;
+    background-color: red;
+}
 .reservado{
     color:red;
 }

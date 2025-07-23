@@ -23,5 +23,5 @@ padding:5px !important;
 }
 
 .ocultar{
-    display: none;
+    display: none !important;
 }

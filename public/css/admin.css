@@ -10,11 +10,9 @@ body {
   background-color: var(--morado);
   position: relative;
   overflow: hidden;
- 
-
 }
 
-.c-checkbox {
+.c-checkbox, .s-checkbox {
   display: none;
 }
 
@@ -129,7 +127,7 @@ body {
 
 .c-welcome {
   position: absolute;
-  width: 80%;
+  width: 50%;
   height: inherit;
   font-size: 12px;
   color: black;
@@ -302,8 +300,8 @@ body {
   width: 0;
   background-color: var(--azulCielo);
   background-image: url("../img/portada_ancha.jpg");
-    background-repeat:repeat-y;
-    background-position: center;
+  background-repeat:repeat-y;
+  background-position: center;
     background-size:cover;
   transition: 0.3s;
 }
@@ -314,55 +312,160 @@ body {
     gap: 20px;
 }
 
-.card {
+.card{
     flex: 1 1 calc(33.33% - 30px);
-    font-size: 20px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
+    height: 140px;
     margin-top:40px;
-    box-sizing: border-box;
+    z-index: 1;
+    pointer-events: initial;
+
+}
+
+.titulo, .info {
+    position: relative;
     background: rgba(255, 255, 255,0.7);
-    background-image: url("../img/sorteo_fondo.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size:70%;
+    cursor: pointer;
+    pointer-events: initial;
+    box-sizing: border-box;
     border-radius: 10px;
+    font-size: 18px;
+    padding: 20px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
     transition: transform 0.3s, box-shadow 0.3s;
     color: var(--magenta);
     text-shadow: 2px 2px 3px black;
+    z-index: 2;
+    justify-content: center;
+    height: -webkit-fill-available;
 }
 
-.card-container .sorteos {
-    background-image: url("../img/sorteo_transp.png");
-     background-blend-mode: none; 
+.titulo{
+    display: flex;
+    cursor:pointer;
+   
+    z-index: 3;
 }
-.card-container .boletos {
-    background-image: url("../img/boleto_estrellas_transp.png");
+
+.info{
+    display: flex;
+    opacity: 0;
+    z-index:2;
+    cursor:default;
 }
-.card-container .ganadores {
+
+
+label.sorteos {
+    background-image: url("../img/sorteo_transp.png");    
+}
+label.boletos {
+    background-image: url("../img/boleto_estrellas_transp.png");    
+}
+label.ganadores {
     background-image: url("../img/ganadores_fondo.png");
 }
 
+#tarj-sorteos:checked ~ .card  label.sorteos,
+#tarj-boletos:checked ~ .card  label.boletos,
+#tarj-ganadores:checked ~ .card  label.ganadores {
+    animation: girar90-out 1s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes girar90-out {
+    0% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    
+    }
+    50% {
+        transform: rotateY(90deg);
+        display: none;
+    }
+    100% {
+        transform: rotateY(180deg);
+        opacity: 0;
+        display: none;
+        z-index: 2;
+    }
+}
+
+#tarj-sorteos:checked ~ .card div.sorteos,
+#tarj-boletos:checked ~ .card div.boletos,
+#tarj-ganadores:checked ~ .card div.ganadores {
+    animation: girar90-in 1s ease-in-out forwards;
+    opacity:1;
+     box-shadow: 0 4px 8px var(--azulCielo);
+}
+
+
+@keyframes girar90-in {
+    0% {
+        transform: rotateY(0deg);
+        opacity: 0;
+        
+    }
+    50% {
+        transform: rotateY(90deg);
+        display:flex;
+        opacity: 0;
+    }
+    100% {
+        transform: rotateY(180deg);
+        opacity: 1;
+        display:flex;
+        z-index: 2;
+    }
+}
+
+.accionesSorteos,.accionesBoletos, .accionesGanadores{
+    position:relative;
+    font-size: 12px;
+    display: block;
+    transform: rotateY(180deg);
+    color:black;    
+}
+
+.acciones div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    text-shadow: none;
+    cursor: pointer;
+    transition: transform 1.3s, color 1.3s;
+}
+.acciones>div:hover {
+    transform: scale(1.5);
+    color: var(--magenta);
+}   
+.fa{
+    font-size: 16px
+}
 
 
 
 
 .admin-header {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     width: 96%;
     height: 50px;
     font-size: 13px;
     font-family: 'GOTHIC';
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 1%;
     color: white;
 }
+
+
 
 @media (max-width: 768px) {
     .card {
@@ -370,6 +473,9 @@ body {
     }
     .card-container {
         gap:1px
+    }
+    .c-welcome{
+        width: 70%;
     }
 }
 
@@ -380,4 +486,108 @@ body {
     .card-container {
         gap:1px
     }
+    .c-welcome{
+        width: 90%;
+    }
 }
+
+.reGirar{
+    animation: girar90-in 1s ease-in-out reverse;
+    opacity:1;
+    transform: rotateY('0deg');
+}
+
+@keyframes deReversaMammi{
+    0% {
+        transform: rotateY(180deg);       
+        
+    }
+    50% {
+        transform: rotateY(90deg);  
+    }
+    100% {
+        transform: rotateY(0deg);
+       
+    }
+} 
+
+
+
+.divFlex{
+    display:inline-flex;
+    flex-direction: row;
+    width: 53%;
+    padding:1px 3px 1px 1px;
+    text-shadow: none;
+}
+
+.id-tabla{
+    text-decoration: none !important;
+    text-shadow: none  !important;
+    width: 20%;
+    cursor:pointer;
+    pointer-events: initial;
+}
+.iconoPagar{
+    width: 20%;
+    color:forestgreen;
+    text-shadow: 1px 1px 1px black !important;
+    cursor:pointer;
+}
+.tituloAdmin{
+    font-size: 25px !important;
+    text-align: center !important;
+    justify-content: center;
+    transform: rotateY(180deg);
+    color: var(--morado);
+    text-shadow: initial;
+}
+.negritas{
+    font-weight: bold;
+}
+
+.divBloque {
+    position: absolute;
+    font-family: "GOTHIC";
+    font-size: 12px;
+    z-index: 20;
+    display: block;
+}
+
+
+#lista{
+    position:relative;
+    width: 95%;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.renglon{
+    position: relative;
+    width: 80%;
+    color:black;
+    padding-bottom: 3px;
+    
+}
+.volteador{
+    transform: rotateY(180deg);
+    height: 90%;
+    width: 75% !important;
+    margin-left: 48px;
+    margin-right: 118px;
+    margin-top: 73px;
+    margin-bottom: 65px;
+    pointer-events: all;
+}
+
+.girador{
+    transform: rotateY(180deg);
+    height: fit-content;
+    top: 47px;
+    position: relative;
+    display: flex;
+    width: 67%;
+    flex-direction: row;
+    align-items: baseline;
+}
+

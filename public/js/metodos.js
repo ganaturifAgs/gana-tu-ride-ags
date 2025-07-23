@@ -4,7 +4,7 @@ const $btn_apartar = function(){return  $("<div>").html("Apartar Números").addC
             $('#dataUserForm').removeClass("ocultar")
            let $datos = alertify.genericDialog ($('#dataUserForm')[0]).set({frameless:false,title:"Datos Personales"})
                 $(".ajs-primary").html($("<div>").addClass("btn_submit").html("<button>Enviar</button>"))
-                $(".btn_submit button").click((e)=>{ 
+                $(".btn_submit button").on('click',(e)=>{ 
                         if(vacio($("#nom")) || vacio($("#tel"))  || vacio($("#edo")) ) {alertify.error("Debe de llenar todos los campos solicitados");  return false}
                         if(!validarTel($("#tel").val())) return false;
                         $datos.close()                        
@@ -72,11 +72,15 @@ $(".boleto").on("click", function() {
     }else{
         $marco.removeClass("libre").addClass("apartado");
         let $miBole = $("<div>").addClass("miBoleto")
+        $miBole.on('click',() =>{ 
+                    let boletos=document.getElementById("boletos")
+                    boletos.scrollTo(0,parseInt($(`#boleto_${id_bol}`).position().top-200))
+                })
         $miBole.html($($boleto).clone());
         $apartados.append($miBole)
         sesion.misBoletos.push(parseInt(id_bol))
         if(sesion.misBoletos.length==5){
-            $apartados.append($("<div>").addClass('Padre').html($btn_apartar()))
+            $apartados.append($("<div>").addClass('Padre').append($btn_apartar()))
         }
         sessionStorage.setItem('userSesion',JSON.stringify(sesion))
     }
@@ -97,9 +101,10 @@ $("#generarNums").on("click",(e)=>{
         $apartados.css("background-image","url('../gif/generarNumeros.gif')")
         $.get(`boletos/azar/${5-cantAct}`).done(resp=>{
             resp.forEach(e => {
-                let $miBole=$("<div>").addClass("miBoleto").click(()=>{ 
+                let $miBole=$("<div>").addClass("miBoleto")
+                    $miBole.on('click',() =>{ 
                     let boletos=document.getElementById("boletos")
-                    boletos.scrollTo(0,parseInt($(`#boleto_${e._id}`).position().top))
+                    boletos.scrollTo(0,parseInt($(`#boleto_${e._id}`).position().top-200))
                 })
                 let $num = $(`#${e._id}`)
                 $miBole.html($num.clone())
@@ -111,9 +116,9 @@ $("#generarNums").on("click",(e)=>{
             });
            
         setTimeout(()=>{
-                $apartados.append($tmp.html())
+                $apartados.append($tmp)
                 $apartados.css("background-image","none")
-                $apartados.append($("<div>").addClass('Padre').html($btn_apartar()))
+                $apartados.append($("<div>").addClass('Padre').append($btn_apartar()))
                 $(e).prop("enabled",true)
           },5000)
         })

@@ -1,0 +1,3 @@
+var divBloque = function(text="",clase="",bordeAabajo=0,fondo="none"){ return  $("<div>").html(text).addClass(`divBloque ${clase}`).css({"border-bottom":bordeAabajo==1 ? "1px solid gray":"none","background-color":fondo})}
+let divFlex = function(text="",clase=""){ return  $("<div>").html(text).addClass(`divFlex  ${clase}`)};
+let validar = function(e,u){ $.get(`/admin/md5/${e.value}`).done(res=>{  if(res==u.pass)  $(e).attr("pattern",e.value)  })}

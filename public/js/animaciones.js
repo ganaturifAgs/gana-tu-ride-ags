@@ -1,5 +1,5 @@
-$(document).ready(function(){
-   
+$(()=>{
+
     $("#btn-menu,.barra-togg").on("click",function(x){
         let aS = $(window).width()
         let aM = $(".menu-barra").outerWidth();
@@ -7,14 +7,11 @@ $(document).ready(function(){
         let mover=aS-aM
         if(aS==lM)  $(".menu-barra").animate({left:`${mover}px`},500,e=>{});
         else  $(".menu-barra").animate({left:"100vw"})
-     });
+     })
 
- $("a.menu-link").on("click",function(){
+    $("a.menu-link").on("click",function(){
             $(".menu-barra").animate({left:"100vw"})
             
      })
-
-
-
 
 });

@@ -38,7 +38,9 @@ exports.crearGrupoBoletos = async (req, res) => {
 
 exports.actualizarGrupoBoletos = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.params._id;
+        console.log(id)
+        console.log(req.body)
         const grupoActualizado = await modeloGruposBoletos.findByIdAndUpdate(id, req.body);
         res.json(grupoActualizado);
     } catch (error) {
@@ -78,6 +80,20 @@ exports.obtenerGruposBoletosPorTelefono = async (req, res) => {
     } catch (error) {
         res.status(500).json({ mensaje: "Error al obtener grupos de boletos por teléfono", error });
     }
+}
+
+
+exports.findPorCampo = async (req,res) =>{
+        try{
+            const campo = req.params.campo
+            const valor = req.params.valor
+            const cond = req.params.condicion == "igual" ? valor: req.params.condicion == "mayor" ? {"$gt":valor}:{"$lt":valor}
+            filtro = campo == "estatus" ? {"estatus":cond}: campo=="sorteo" ? {"sorteo":cond}:{"fecha":cond}
+            const encontrados = await modeloGruposBoletos.find(filtro);
+            res.json({success:true,data:encontrados})            
+        }catch(error){
+            res.json({success:false,msg:error})
+        }
 }
 
 exports.buscarGruposBoletos = async (req, res) => {

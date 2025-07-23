@@ -6,7 +6,7 @@
 let numsBoletos = ""
 data.numeros.forEach(e=>{ numsBoletos+=agregaCeros(e,data.nuMax)+" - " })
 %>
-<div id="izquierda" class="lateral"><%= data.titulo %></div>
+<div id="izquierda" class="lateral <%= data.estatus == 2 ? 'colorReservado':'colorPagado' %>" ><%= data.titulo %></div>
         <div class="central">
             <div id="arriba" class="centrales">
                 <div class="imagen"> <img src="/img/logo_circulo.png" width="70px" alt=""></div>
@@ -31,4 +31,4 @@ data.numeros.forEach(e=>{ numsBoletos+=agregaCeros(e,data.nuMax)+" - " })
 
             </div>
         </div>
-    <div id="derecha" class="lateral"><%= data.titulo %></div>
+    <div id="derecha" class="lateral <%= data.estatus == 2 ? 'colorReservado':'colorPagado' %>" ><%= data.titulo %></div>

@@ -6,12 +6,40 @@
     --amarillo: #FECA05;
     --amarillo-brillante:#FFD500;
     --magenta:#FF2080;
-    --morado-oscuro:#150629;
     --left-menu:calc(100vw-120px);
+    --morado-oscuro:#150629;
+    --ancho3 : calc(33.33% - 20px);    
 }
 @font-face{
     font-family: 'GOTHIC';
     src: url('./webfonts/GOTHIC.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face{
+    font-family:"COOP";
+    src:url("./webfonts/COOPBL.TTF") format('truetype');
+    font-weight:normal;
+    font-style:normal;
+}
+
+
+.ocultar{
+    display: none !important;
+}
+.btn-cerrar{
+    position:absolute;
+    top:2px;
+    left:4px;
+    color:#000;
+    cursor: pointer;
+}
+
+
+ .proximamanete{
+    font-size: 25px !important;
+    font-family: 'COOP' !important;
+    top:29%;
+    text-shadow: none;;
 }

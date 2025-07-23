@@ -3,14 +3,13 @@ const { dirname } = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 80
-const html2canvas = require('html2canvas')
 
 const  mongoose = require('./router/BD/mongoose-db')
 const preguntaRutas = require('./router/preguntas-rutas')
 const sorteoRutas = require('./router/sorteo-rutas');
 const boletosRutas = require('./router/boletos-ruta')
-const gruposBoletosRutas = require("./router/gruposBoletos-rutas")
-
+const gruposBoletosRutas = require("./router/gruposBoletos-rutas");
+const usuariosRutas = require("./router/usuario-rutas");
 
 
 
@@ -38,15 +37,26 @@ app.get('/buscador',async(req,res)=>{
   res.render('boletos/buscador',{titulo:'Buscador de Boletos',corporacion:'Gana tu Ride Ags'})
 })
 
-app.get('/admin',async(req,res)=>{
-  res.render('admin',{titulo:'Administración',corporacion:'Gana tu Ride Ags'})
+app.get('/admin/:usuario',async(req,res)=>{
+  const Usuario = require('./modelos/usuarios');
+  let usuario = await Usuario.findOne({usuario:req.params.usuario})
+  console.log(usuario)
+  let ruta = usuario ? 'admin':'admin/intruso'
+  res.render(ruta,{titulo:'Administración',corporacion:'Gana tu Ride Ags',usu:usuario})
 })
 
+
+app.get("/admin/md5/:texto",(req,res)=>{
+  const md5 = require("md5")
+  let textoMD5 = md5(req.params.texto)
+  res.send(textoMD5)
+})
 
 app.use('/pregunta',preguntaRutas)
 app.use('/sorteos',sorteoRutas)
 app.use('/boletos',boletosRutas)
 app.use('/gposBoletos',gruposBoletosRutas)
+app.use('/usuarios',usuariosRutas)
 
 app.post('/sesion/:ip',(req,res)=>{
     console.log(`[${req.params.ip}] inicio de sesión`) 

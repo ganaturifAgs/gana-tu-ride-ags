@@ -1,0 +1,12 @@
+const mongoose = require('mongoose')
+const esquemaU =  mongoose.Schema({
+    _id: Number,
+    usuario: String,
+    pass: String,
+    nombre: String,
+    puesto: String
+})
+
+const Usuario  = mongoose.model("usuarios",esquemaU)
+
+module.exports = Usuario

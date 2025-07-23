@@ -1,14 +1,47 @@
-<div class="admin-header"><div class="titulo">GTRA - Administración</div><div class="login">Nombre del admin</div></div>
+<div class="admin-header"><div class="tit_module">GTRA - Administración</div><div class="login"><%= nom %></div></div>
 <div class="card-container">
-		<div class="card sorteos">
-			<h1>SORTEOS</h1>
+    <input type="checkbox" class="s-checkbox" id="tarj-sorteos">
+    <div class="card">
+        <label for="tarj-sorteos" class="titulo sorteos" role="button">
+            <h1>SORTEOS</h1>
+        </label>
+        <div class="info sorteos">
+                <div id="Sorteos" class="acciones accionesSorteos">
+                   <div id="s_nuevo" class="s opcion">Crear nuevo sorteo</div>
+                    <div id="s_actual" class="s opcion">Actualizar datos</div>
+                    <div id="s_terminar"  class="s opcion">Terminación del Sorteo</div>
+                </div>
+            <!-- <i class="fa-solid fa-xmark btn-cerrar ocultar"></i> -->
+        </div>
+    </div>
+
+    <input type="checkbox" class="s-checkbox" id="tarj-boletos">
+    <div class="card">
+            <label for="tarj-boletos" class="titulo boletos" role="button">
+                <h1>BOLETOS</h1>
+            </label>
+        
+        <div  class="info boletos">
+            <div id="Boletos" class="acciones accionesBoletos">
+                <div id="b_pagado"  class="b opcion">Confirmar Pago</div>
+                <div id="b_actual"  class="b opcion">Editar Boleto</div>
+                <div id="b_eliminar"  class="b opcion">Eliminar y Liberar</div>
+            </div>
+        </div>
+    </div>  
+
+    <input type="checkbox" class="s-checkbox" id="tarj-ganadores">
+    <div class="card">
+        <label for="tarj-ganadores" class="titulo ganadores" role="button">
+            <h1>GANADORES</h1>
+        </label>
+        <div  class="info ganadores">
+            <div id="Ganadores" class="acciones accionesGanadores">
+                <div id="g_ver"  class="g opcion">Ver ganadores</div>
+                <div id="g_buscar"  class="g opcion">Buscar ganadores</div>
+                <div id="g_imagenes"  class="g opcion">Imagenes de ganadores</div>
+            </div>
+        </div>
+    </div>
+</div>
 			
-		</div>
-		<div class="card boletos">
-			<h1>BOLETOS</h1>
-			
-		</div>
-		<div class="card ganadores">
-			<h1>GANADORES</h1>
-		</div>
-	</div>
