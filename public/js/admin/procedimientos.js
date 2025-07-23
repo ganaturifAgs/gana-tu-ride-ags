@@ -1,6 +1,5 @@
 
 function pagar(e){
-        console.log($(e.currentTarget))
         let cliente = $(e.currentTarget).prev()[0].innerHTML
         let id = parseInt(e.currentTarget.id.split("-")[0])
         alertify.confirm("Boletos Pagados",`¿Esta seguro que quiere establecer el boleto de <strong> ${cliente} </strong> como pagado?`,()=>{

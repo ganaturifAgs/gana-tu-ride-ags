@@ -23,11 +23,8 @@ $(".acciones>.opcion").on('click',e=>{
                 $abuelo.append(divBloque($este.html(),"tituloAdmin negritas"))
                 $abuelo.append(divBloque(divFlex("ID","negritas id-tabla"),"renglon girador ").append(divFlex("NOMBRE","negritas")).append(divFlex("CONFIRMAR PAGO","negritas iconoPagos")) )
                 $abuelo.append($procedi) 
-                
-                console.log($padre[0].id)
                 let mi_accion = new Accion($padre[0].id)
                 mi_accion[id](id,["_id","datos.nombre","fecha"],{"background-color":"black","color":"white"},function(result){
-                          console.log(result)
                           $procedi.html(result)         
                           let $tmp = $abuelo.find($(".btn-cerrar"))                           
                            if($tmp.length === 0) {
