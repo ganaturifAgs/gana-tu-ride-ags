@@ -51,8 +51,23 @@ exports.actualizarGrupoBoletos = async (req, res) => {
 exports.eliminarGrupoBoletos = async (req, res) => {
     try {
         const id = req.params.id;
-        await modeloGruposBoletos.findByIdAndDelete(id);
-        res.json({success:true,msg: "Grupo de boletos eliminado correctamente" });
+        console.log(id)
+        const boleto = await modeloGruposBoletos.findOne({_id:id},{numeros:1})
+        console.log(boleto)
+        const modeloBoleto = require("../modelos/Boletos")
+        let cant = boleto.numeros.length
+        let act=[]
+        let resultado = boleto.numeros.forEach(async (e)=>{
+            await act.push(await modeloBoleto.findByIdAndUpdate(e,{"estatus":0,"grupoBoleto":0}))
+            
+            if(act.length==cant){
+                await modeloGruposBoletos.findByIdAndDelete(id);
+                res.json({success:true,msg: "Grupo de boletos eliminado correctamente" });
+            }
+            return act        
+        })
+    console.log(resultado)
+               
     } catch (error) {
         res.json({success:true,msg: "Error al eliminar este boleto. Comuniquese con su administrador", error });
     }
