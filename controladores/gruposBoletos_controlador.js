@@ -52,9 +52,9 @@ exports.eliminarGrupoBoletos = async (req, res) => {
     try {
         const id = req.params.id;
         await modeloGruposBoletos.findByIdAndDelete(id);
-        res.json({ mensaje: "Grupo de boletos eliminado correctamente" });
+        res.json({success:true,msg: "Grupo de boletos eliminado correctamente" });
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al eliminar grupo de boletos", error });
+        res.json({success:true,msg: "Error al eliminar este boleto. Comuniquese con su administrador", error });
     }
 };
 

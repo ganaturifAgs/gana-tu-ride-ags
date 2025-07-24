@@ -20,14 +20,14 @@ $(".acciones>.opcion").on('click',e=>{
                 $(".card").addClass('ocultar')              
                 $visAbuelo.removeClass('ocultar')
                 $abuelo.append(divBloque($este.html(),"tituloAdmin negritas"))
-                $abuelo.append(divBloque(divFlex("ID","negritas id-tabla"),"renglon girador ").append(divFlex("NOMBRE","negritas")).append(divFlex("CONFIRMAR PAGO","negritas iconoPagos")) )
-                $abuelo.append($procedi) 
                 let mi_accion = new Accion($padre[0].id)
                 mi_accion[id](id,["_id","datos.nombre","fecha"],{"background-color":"black","color":"white"},function(result){
-                          $procedi.html(result)         
-                          let $tmp = $abuelo.find($(".btn-cerrar"))                           
-                           if($tmp.length === 0) {
-                             let $cerrar = $("<i>").addClass('fa-solid fa-xmark btn-cerrar').on("click",c=>{
+                    $procedi.html(result)
+                    $abuelo.append(divBloque(divFlex("ID","negritas id-tabla"),"renglon girador ").append(divFlex("NOMBRE","negritas")).append(divFlex("PAGAR","negritas iconoPagar").css("font-size","12px")).append(divFlex("ELIMINAR","negritas iconoEliminar").css("font-size","12px")) )
+                    $abuelo.append($procedi) 
+                    let $tmp = $abuelo.find($(".btn-cerrar"))                           
+                    if($tmp.length === 0) {
+                                 let $cerrar = $("<i>").addClass('fa-solid fa-xmark btn-cerrar').on("click",c=>{
                                      $abuelo.animate({width:`${ancho}px`,height:`${alto}px`},500,'linear',(elem)=>{
                                          $abuelo.animate({left:`${izq}px`,top:`${arriba}px`},500,'linear',(elem)=>{
                                              $abuelo.css({"position":"static","display":"flex","transform":"rotateY(180deg)"})

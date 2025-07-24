@@ -3,14 +3,26 @@
 function pagar(e){
         let cliente = $(e.currentTarget).prev()[0].innerHTML
         let id = parseInt(e.currentTarget.id.split("-")[0])
-        alertify.confirm("Boletos Pagados",`¿Esta seguro que quiere establecer el boleto de <strong> ${cliente} </strong> como pagado?`,()=>{
+        alertify.confirm("Boletos Pagados",`¿Esta seguro que desea establecer el boleto de <strong> ${cliente} </strong> como pagado?`,()=>{
                 $.ajax({url:`/gposBoletos/${id}`,type:'PUT',data:{estatus:3},success:function(res){
                         console.log(res)
                         alertify.success(`El boleto ${id} se establecio como pagado`)
                         $(".btn-cerrar").trigger( "click" );
                     }})
             },()=>{alertify.error("Acción cancelada")}).autoCancel(20)
-
+        }
+function eliminarBoleto(e){
+    let cliente = $(e.currentTarget).prev().prev()[0].innerHTML
+        let id = parseInt(e.currentTarget.id.split("-")[0])
+        alertify.confirm("Eliminar Boleto",`¿Esta seguro que desea eliminar el boleto de <strong> ${cliente} </strong>?`,()=>{
+                $.ajax({url:`/gposBoletos/${id}`,type:'DELETE',success:function(res){
+                        if(res.success)
+                            alertify.success(`El boleto ${id} fue eliminado satisfactoriamente`)
+                        else   
+                            alertify.error(res.mgs)
+                        $(".btn-cerrar").trigger( "click" );
+                    }})
+            },()=>{alertify.error("Acción cancelada")}).autoCancel(20)
 }
 
 fetch("/usuarios").then(res=>res.json()).then(r=>{console.log(r)})
@@ -29,7 +41,7 @@ var Accion = function(clase){
                                                         if(res.success){
                                                             if(res.data.length>0){
                                                                 res.data.forEach( async e=>{  
-                                                                   let $row = await divBloque(divFlex($("<a>").attr({"href":`/boletos/impreso/${e._id}`,"target":"_blank"}).html(e._id),"id-tabla"),"renglon",1,"none").append(divFlex(e.datos.nombre)).append(divFlex($("<i>").addClass("fa-solid fa-hand-holding-dollar fa-2x"),"iconoPagar").attr("id",`${e._id}-pagado`).on("click",pagar))
+                                                                   let $row = await divBloque(divFlex($("<a>").attr({"href":`/boletos/impreso/${e._id}`,"target":"_blank"}).html(e._id),"id-tabla"),"renglon",1,"none").append(divFlex(e.datos.nombre,"nomCliente")).append(divFlex($("<i>").addClass("fa-solid fa-hand-holding-dollar"),"iconoPagar").attr("id",`${e._id}-pagado`).on("click",pagar)).append(divFlex($("<i>").addClass("fa-solid fa-trash-can"),"iconoEliminar").attr("id",`${e._id}-eliminar`).on("click",eliminarBoleto))
                                                                     $lista.append($row)
                                                                 })
                                                              }else{
@@ -43,8 +55,8 @@ var Accion = function(clase){
                                                 }
                                          }["run"]();
                                     },
-                            b_actual:function(id,campos,estilo,funCallback){  funCallback(divBloque("FUNCION ACTUALIZAR BOLETO, PROXIMAMENTE....","renglon proximamanete",1))},
-                            b_eliminar:function(id,campos,estilo,funCallback){  funCallback(divBloque("FUNCION ELIMINAR BOLETO, PROXIMAMENTE....","renglon proximamanete",1))}
+                            b_vendidos:function(id,campos,estilo,funCallback){  funCallback(divBloque("LISTAR BOLETOS VENDIDOS, PROXIMAMENTE....","renglon proximamanete",1))},
+                            b_sinVender:function(id,campos,estilo,funCallback){  funCallback(divBloque("BOLETOS SIN VENDER, PROXIMAMENTE....","renglon proximamanete",1))}
                          },                     
                        Sorteos:{
                             s_nuevo:(id,campos,estilo,funCallback)=>{  funCallback(divBloque("FUNCION SORTEO NUEVO, PROXIMAMENTE....","renglon proximamanete",1))},

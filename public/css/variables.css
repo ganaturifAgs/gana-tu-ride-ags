@@ -43,3 +43,20 @@
     top:29%;
     text-shadow: none;;
 }
+
+*::-webkit-scrollbar {
+  width: 9px;
+  
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--azul);
+  border-radius: 10px;
+  border: 0.5px solid var(--magenta);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--morado);
+  border-radius: 10px;
+  cursor:s-resize;
+}

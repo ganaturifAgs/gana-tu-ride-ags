@@ -524,15 +524,20 @@ label.ganadores {
 .id-tabla{
     text-decoration: none !important;
     text-shadow: none  !important;
-    width: 20%;
+    width: 10%;
     cursor:pointer;
     pointer-events: initial;
 }
-.iconoPagar{
-    width: 20%;
+.iconoPagar,.iconoEliminar{
+    width: 15%;
     color:forestgreen;
+    font-size: 19px;
+    margin-right: 1px;
     text-shadow: 1px 1px 1px black !important;
     cursor:pointer;
+}
+.iconoEliminar{
+    color:#ff0033
 }
 .tituloAdmin{
     font-size: 25px !important;
@@ -564,7 +569,7 @@ label.ganadores {
 
 .renglon{
     position: relative;
-    width: 80%;
+    width: 99%;
     color:black;
     padding-bottom: 3px;
     
@@ -572,9 +577,9 @@ label.ganadores {
 .volteador{
     transform: rotateY(180deg);
     height: 90%;
-    width: 75% !important;
-    margin-left: 48px;
-    margin-right: 118px;
+    width: 85% !important;
+    margin-left: 30px;
+    margin-right: 80px;
     margin-top: 73px;
     margin-bottom: 65px;
     pointer-events: all;
@@ -586,8 +591,18 @@ label.ganadores {
     top: 47px;
     position: relative;
     display: flex;
-    width: 67%;
+    width: 83%;
     flex-direction: row;
     align-items: baseline;
+}
+#b_pagado p{
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+.tituloAdmin p{
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
 }
 
