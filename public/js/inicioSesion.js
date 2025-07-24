@@ -1,7 +1,7 @@
 
 
-$(document).ready(res=>{
-    localStorage
+$(function(res){
+    localStorage = {}
     let _idUser = moment().locale('es-mx').format('L_LTS').replaceAll("/","-")
     sessionStorage.setItem("userSesion",JSON.stringify({id:'sesUsu'+_idUser,estatus:'onLine'}))
     fetch('https://api.ipify.org?format=json')
@@ -18,4 +18,4 @@ $(document).ready(res=>{
 $("#sorteoActivo>button").on("click", function() {
     var document = window.document;
     document.location.href = "/sorteos";
-});
+})();

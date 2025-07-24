@@ -44,6 +44,7 @@ app.get("/admin",async(req,res)=>{
 app.get('/admin/:usuario',async(req,res)=>{
   const Usuario = require('./modelos/usuarios');
   let usuario = await Usuario.findOne({usuario:req.params.usuario})
+  console.log(usuario)
   let ruta = usuario ? 'admin':'admin/intruso'
   res.render(ruta,{titulo:'Administración',corporacion:'Gana tu Ride Ags',usu:usuario})
 })
