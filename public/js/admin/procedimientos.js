@@ -1,4 +1,4 @@
-$(function(){
+
 
 function pagar(e){
         let cliente = $(e.currentTarget).prev()[0].innerHTML
@@ -60,4 +60,3 @@ var Accion = function(clase){
     }
 
 
-})();
