@@ -38,7 +38,7 @@
                         class="c-form__input"
                         placeholder=" "
                         pattern=""
-                        onkeypress="validar(this,<%= usu %>)"
+                        onchange="validar(this,<%= usu %>)"
                         required>
 
                     <label class="c-form__next" for="progress2" role="button">
@@ -72,7 +72,7 @@
       </label>
     </div>
 
-    <label class="c-form__toggle" for="finish"><%= usu.nombre %><span class="c-form__toggleIcon"></span></label>
+    <label class="c-form__toggle" for="start"><%= usu.nombre %><span class="c-form__toggleIcon"></span></label>
   </form>
 </div>
 <script src="../js/moment-with-locales.js"></script>

@@ -53,6 +53,7 @@ app.get('/admin/:usuario',async(req,res)=>{
 app.get("/admin/md5/:texto",(req,res)=>{
   const md5 = require("md5")
   let textoMD5 = md5(req.params.texto)
+  console.log(textoMD5)
   res.send(textoMD5)
 })
 
