@@ -4,7 +4,7 @@ function pagar(e){
         let cliente = $(e.currentTarget).prev()[0].innerHTML
         let id = parseInt(e.currentTarget.id.split("-")[0])
         alertify.confirm("Boletos Pagados",`¿Esta seguro que quiere establecer el boleto de <strong> ${cliente} </strong> como pagado?`,()=>{
-                $.ajax({url:`gposBoletos/${id}`,type:'PUT',data:{estatus:3},success:function(res){
+                $.ajax({url:`/gposBoletos/${id}`,type:'PUT',data:{estatus:3},success:function(res){
                         console.log(res)
                         alertify.success(`El boleto ${id} se establecio como pagado`)
                     }})

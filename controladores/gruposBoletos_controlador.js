@@ -91,7 +91,7 @@ exports.findPorCampo = async (req,res) =>{
             filtro = campo == "estatus" ? {"estatus":cond}: campo=="sorteo" ? {"sorteo":cond}:{"fecha":cond}
             console.log(filtro)
             const encontrados = await modeloGruposBoletos.find(filtro);
-            console.log(encontrados)
+            console.log(encontrados.length)
             res.json({success:true,data:encontrados})            
         }catch(error){
             res.json({success:false,msg:error})
