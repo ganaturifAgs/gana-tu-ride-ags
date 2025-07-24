@@ -34,7 +34,7 @@ let direccionarWA = function(e){
                                 sessionStorage.setItem('userSesion',JSON.stringify(sesion))
                                 let mensaje=`Hola, soy *${datosTMP.nombre}* acabo de apartar estos números: *${boletosCommit}*, para el sorteo *${$("#corp").html().replace("#","No.")}*. Folio: *${nuevo}* En cuanto tenga el comprobante de pago, se lo haré llegar por este medio para asi recibir mi boleto.`
                                 window.open(`https://wa.me/524494808482?text=${mensaje}`,"_blank","")
-                                document.location.href=`/`   
+                                document.location.href=`/pagos`   
                                 }
                             }})
                   }
