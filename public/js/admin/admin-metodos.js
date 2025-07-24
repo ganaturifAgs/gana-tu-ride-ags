@@ -1,4 +1,3 @@
-$(function(){
 
 
 $(".acciones>.opcion").on('click',e=>{
@@ -49,8 +48,5 @@ $(".acciones>.opcion").on('click',e=>{
                     })        
         })
     })
-
-            
+     
 });
-
-})()

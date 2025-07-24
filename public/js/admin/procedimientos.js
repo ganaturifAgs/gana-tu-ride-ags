@@ -7,6 +7,7 @@ function pagar(e){
                 $.ajax({url:`/gposBoletos/${id}`,type:'PUT',data:{estatus:3},success:function(res){
                         console.log(res)
                         alertify.success(`El boleto ${id} se establecio como pagado`)
+                        $(".btn-cerrar").trigger( "click" );
                     }})
             },()=>{alertify.error("Acción cancelada")}).autoCancel(20)
 
